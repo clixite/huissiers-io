@@ -757,7 +757,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
     </div>
     <div class="grid lg:grid-cols-3 gap-12">
       <div class="lg:col-span-2">
-        <form id="contact-form" action="https://formspree.io/f/xpwzgkjr" method="POST" class="space-y-6 reveal">
+        <form id="contact-form" class="space-y-6 reveal">
           <div class="grid md:grid-cols-2 gap-6">
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-2">Nom de l'&eacute;tude</label>
@@ -816,7 +816,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div>
           <h3 class="text-white font-semibold mb-4">Contact direct</h3>
           <div class="space-y-3 text-sm">
-            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-envelope text-brand-500"></i>nicolas@clixite.com</div>
+            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-envelope text-brand-500"></i>nicolas@clixite.be</div>
             <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-location-dot text-brand-500"></i>Belgique</div>
             <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-clock text-brand-500"></i>R&eacute;ponse sous 24h</div>
           </div>
@@ -860,13 +860,13 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
       <div>
         <h4 class="text-white font-semibold text-sm mb-4">Contact</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="mailto:nicolas@clixite.com" class="text-gray-400 hover:text-white transition-colors">nicolas@clixite.com</a></li>
+          <li><a href="mailto:nicolas@clixite.be" class="text-gray-400 hover:text-white transition-colors">nicolas@clixite.be</a></li>
           <li><a href="https://www.linkedin.com/in/nicolassimon" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a></li>
         </ul>
       </div>
     </div>
     <div class="mt-12 pt-8 border-t border-dark-border text-center text-gray-500 text-sm">
-      &copy; 2026 Clixite SRL — Nicolas Simon. Con&ccedil;u et d&eacute;velopp&eacute; en Belgique &#127463;&#127466;
+      &copy; 2026 Clixite SRL — BCE BE0871430776 — Nicolas Simon. Con&ccedil;u et d&eacute;velopp&eacute; en Belgique &#127463;&#127466;
     </div>
   </div>
 </footer>
@@ -976,7 +976,7 @@ function toggleFaq(btn) {
   if (!wasOpen) item.classList.add('open');
 }
 
-// Form submission
+// Form submission via Resend API
 const form = document.getElementById('contact-form');
 if (form) {
   form.addEventListener('submit', async (e) => {
@@ -986,19 +986,31 @@ if (form) {
     btn.disabled = true;
     btn.textContent = 'Envoi en cours...';
     try {
-      const res = await fetch(form.action, {
+      const fd = new FormData(form);
+      const payload = {
+        study_name: fd.get('study_name'),
+        name: fd.get('name'),
+        email: fd.get('email'),
+        phone: fd.get('phone'),
+        bailiffs_count: fd.get('bailiffs_count'),
+        current_software: fd.get('current_software'),
+        message: fd.get('message'),
+        gdpr_consent: !!fd.get('gdpr_consent'),
+      };
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-      if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
         status.textContent = 'Merci ! Votre demande a bien été envoyée. Nous vous répondrons sous 24h.';
         status.className = 'text-center text-sm text-emerald-400';
         form.reset();
       } else {
-        throw new Error();
+        throw new Error(data.errors?.[0] || 'Erreur');
       }
-    } catch {
+    } catch (err) {
       status.textContent = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement.';
       status.className = 'text-center text-sm text-red-400';
     }
