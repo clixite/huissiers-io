@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr-BE">
+<html lang="fr-BE" class="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>huissiers.io — Le logiciel IA pour huissiers de justice belges</title>
-<meta name="description" content="Premier logiciel belge combinant IA, portail débiteur self-service, signature itsme® QES et conformité Book XIX automatisée. Prêt pour juin 2026. Par Clixite SRL.">
-<meta name="keywords" content="huissier de justice, logiciel huissier, Belgique, IA, intelligence artificielle, recouvrement, Book XIX, itsme, e-Deposit, portail débiteur, Clixite">
+<meta name="description" content="Premier logiciel belge combinant IA, portail d&eacute;biteur self-service, signature itsme&reg; QES et conformit&eacute; Book XIX automatis&eacute;e. Pr&ecirc;t pour juin 2026. Par Clixite SRL.">
+<meta name="keywords" content="huissier de justice, logiciel huissier, Belgique, IA, intelligence artificielle, recouvrement, Book XIX, itsme, e-Deposit, portail d&eacute;biteur, Clixite">
 <meta name="author" content="Nicolas Simon — Clixite SRL">
-<meta property="og:title" content="huissiers.io — L'IA au service des huissiers belges">
-<meta property="og:description" content="Le seul logiciel belge combinant IA, portail débiteur self-service et conformité automatisée. Par Nicolas Simon et Clixite SRL.">
+<meta property="og:title" content="huissiers.io — L&#39;IA au service des huissiers belges">
+<meta property="og:description" content="Le seul logiciel belge combinant IA, portail d&eacute;biteur self-service et conformit&eacute; automatis&eacute;e. Par Nicolas Simon et Clixite SRL.">
 <meta property="og:url" content="https://www.huissiers.io">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_BE">
@@ -18,605 +18,341 @@
 <link rel="canonical" href="https://www.huissiers.io">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74',
+          400: '#fb923c', 500: '#f97316', 600: '#ea580c', 700: '#c2410c',
+          800: '#9a3412', 900: '#7c2d12',
+        },
+        dark: { bg: '#0B1120', card: '#111827', border: '#1F2937' }
+      },
+      fontFamily: { sans: ['Inter', 'sans-serif'] }
+    }
+  }
+}
+</script>
 <style>
-/* =================================================================
-   RESET & TOKENS
-   ================================================================= */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#06080F;--bg-card:#0D1117;--bg-glass:rgba(255,255,255,.04);
-  --border:rgba(255,255,255,.08);--border-hover:rgba(255,255,255,.16);
-  --gold:#D4A853;--gold-soft:rgba(212,168,83,.15);--gold-glow:rgba(212,168,83,.3);
-  --blue:#3B82F6;--teal:#06B6D4;--red:#EF4444;--red-soft:#DC2626;
-  --green:#22C55E;--amber:#F59E0B;
-  --text:#E2E8F0;--text-muted:#94A3B8;--text-dim:#64748B;
-  --ff:'Outfit',system-ui,sans-serif;
-  --ff-display:'DM Serif Display',Georgia,serif;
-  --ff-mono:'JetBrains Mono',monospace;
-  --nav-h:72px;--bar-h:44px;
-  --ease:cubic-bezier(.16,1,.3,1);
-  --radius:16px;--radius-sm:10px;--radius-pill:100px;
-}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + var(--bar-h) + 16px)}
-body{font-family:var(--ff);font-size:1rem;line-height:1.7;color:var(--text);background:var(--bg);
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-a{color:var(--teal);text-decoration:none;transition:color .2s}
-a:hover{color:var(--gold)}
-ul{list-style:none}
-img,svg{display:block;max-width:100%}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-
-/* =================================================================
-   TYPOGRAPHY
-   ================================================================= */
-h1,h2,h3,h4{font-weight:700;line-height:1.15}
-h1{font-family:var(--ff-display);font-weight:400}
-h2{font-family:var(--ff);font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-.02em}
-h3{font-family:var(--ff);font-size:clamp(1.15rem,2vw,1.4rem);font-weight:600}
-.gradient-text{background:linear-gradient(135deg,var(--gold) 0%,#F7DC6F 40%,var(--teal) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.section-sub{font-size:1.1rem;color:var(--text-muted);max-width:580px;margin:0 auto 3rem}
-
-/* =================================================================
-   LAYOUT
-   ================================================================= */
-.container{width:min(1200px,90%);margin:0 auto}
-.section{padding:7rem 0;position:relative}
-.text-center{text-align:center}
-
-/* =================================================================
-   BUTTONS — pill shaped, gradients
-   ================================================================= */
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;
-  border-radius:var(--radius-pill);font-weight:600;font-size:.95rem;
-  transition:all .3s var(--ease);letter-spacing:.01em;position:relative;overflow:hidden}
-.btn--primary{background:linear-gradient(135deg,var(--red) 0%,#F97316 100%);color:#fff;
-  box-shadow:0 0 24px rgba(239,68,68,.25)}
-.btn--primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(239,68,68,.4);color:#fff}
-.btn--ghost{border:1px solid var(--border);color:var(--text);backdrop-filter:blur(12px);
-  background:var(--bg-glass)}
-.btn--ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
-.btn--gold{background:linear-gradient(135deg,var(--gold) 0%,#F7DC6F 100%);color:var(--bg);
-  font-weight:700;box-shadow:0 0 32px var(--gold-glow)}
-.btn--gold:hover{transform:translateY(-2px);box-shadow:0 0 48px var(--gold-glow);color:var(--bg)}
-.btn--white{background:#fff;color:var(--red);font-weight:700;border-radius:var(--radius-pill)}
-.btn--white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,255,255,.15);color:var(--red)}
-.btn--lg{padding:1rem 2.6rem;font-size:1.05rem}
-.btn--full{width:100%;justify-content:center}
-
-/* =================================================================
-   GLASS CARD
-   ================================================================= */
-.glass{background:var(--bg-glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid var(--border);border-radius:var(--radius);transition:all .35s var(--ease)}
-.glass:hover{border-color:var(--border-hover);background:rgba(255,255,255,.06)}
-
-/* =================================================================
-   URGENCY BAR
-   ================================================================= */
-.urgency-bar{position:fixed;top:0;left:0;right:0;z-index:1001;height:var(--bar-h);
-  background:linear-gradient(90deg,var(--red) 0%,#B91C1C 100%);color:#fff;
-  display:flex;align-items:center;justify-content:center;gap:.75rem;
-  font-size:.88rem;font-weight:500;padding:0 3rem;transition:transform .4s var(--ease)}
-.urgency-bar.hidden{transform:translateY(-100%)}
-.urgency-bar a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px}
-.urgency-bar a:hover{color:var(--gold)}
-.urgency-close{position:absolute;right:1rem;color:#fff;font-size:1.2rem;opacity:.7;
-  transition:opacity .2s;padding:.25rem}
-.urgency-close:hover{opacity:1}
-
-/* =================================================================
-   NAVBAR — glass morphism
-   ================================================================= */
-.navbar{position:fixed;top:var(--bar-h);left:0;right:0;z-index:1000;height:var(--nav-h);
-  display:flex;align-items:center;transition:all .4s var(--ease)}
-.navbar.scrolled{background:rgba(6,8,15,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);box-shadow:0 4px 30px rgba(0,0,0,.3)}
-.navbar .container{display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--ff);font-size:1.4rem;font-weight:800;
-  background:linear-gradient(135deg,var(--gold),#F7DC6F);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.01em}
-.nav-links{display:flex;gap:2.5rem;align-items:center}
-.nav-links a{color:var(--text-muted);font-size:.9rem;font-weight:500;
-  transition:color .2s;position:relative}
-.nav-links a:hover{color:#fff}
-.nav-cta .btn{padding:.65rem 1.6rem;font-size:.88rem}
-.hamburger{display:none;flex-direction:column;gap:5px;padding:.5rem}
-.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
-.mobile-menu{display:none;position:fixed;inset:0;top:calc(var(--bar-h) + var(--nav-h));
-  background:rgba(6,8,15,.96);backdrop-filter:blur(24px);z-index:999;
-  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
-  opacity:0;transition:opacity .3s}
-.mobile-menu.open{display:flex;opacity:1}
-.mobile-menu a{color:var(--text);font-size:1.2rem;font-weight:600}
-
-/* =================================================================
-   HERO
-   ================================================================= */
-.hero{min-height:100vh;display:flex;align-items:center;
-  padding-top:calc(var(--bar-h) + var(--nav-h) + 2rem);padding-bottom:4rem;overflow:hidden}
-.hero .container{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2}
-.hero-text h1{font-size:clamp(2.8rem,5.5vw,4.5rem);color:#fff;margin-bottom:1.5rem;letter-spacing:-.02em}
-.hero-text h1 em{font-style:italic;color:var(--gold)}
-.hero-text p{font-size:1.15rem;color:var(--text-muted);max-width:520px;margin-bottom:2.5rem;line-height:1.7}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
-/* Orbs */
-.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
-.orb--gold{width:500px;height:500px;background:radial-gradient(circle,rgba(212,168,83,.12),transparent 70%);
-  top:-10%;right:-5%}
-.orb--blue{width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,.08),transparent 70%);
-  bottom:-20%;left:-15%}
-.orb--teal{width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,212,.06),transparent 70%);
-  top:40%;left:30%}
-/* Grid pattern */
-.hero::before{content:'';position:absolute;inset:0;z-index:1;
-  background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:32px 32px;mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black 30%,transparent 100%)}
-
-/* Dashboard Mockup — modern glass style */
-.dashboard-mock{background:rgba(13,17,23,.9);border:1px solid var(--border);
-  border-radius:20px;overflow:hidden;position:relative;
-  box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  transform:perspective(1400px) rotateY(-6deg) rotateX(3deg);transition:transform .8s var(--ease)}
-.dashboard-mock:hover{transform:perspective(1400px) rotateY(-2deg) rotateX(1deg)}
-.mock-header{display:flex;align-items:center;gap:7px;padding:14px 18px;
-  background:rgba(0,0,0,.4);border-bottom:1px solid var(--border)}
-.mock-dot{width:11px;height:11px;border-radius:50%}
-.mock-dot:nth-child(1){background:#EF4444}
-.mock-dot:nth-child(2){background:#F59E0B}
-.mock-dot:nth-child(3){background:#22C55E}
-.mock-title{margin-left:auto;font-family:var(--ff-mono);font-size:.72rem;color:var(--text-dim)}
-.mock-body{padding:20px;display:flex;flex-direction:column;gap:14px}
-.mock-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.mock-kpi{background:rgba(255,255,255,.03);border:1px solid var(--border);
-  border-radius:var(--radius-sm);padding:14px}
-.mock-kpi-value{font-family:var(--ff);font-size:1.6rem;font-weight:800;display:block;letter-spacing:-.02em}
-.mock-kpi-value.v-gold{color:var(--gold)}
-.mock-kpi-value.v-teal{color:var(--teal)}
-.mock-kpi-value.v-green{color:var(--green)}
-.mock-kpi-label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;
-  letter-spacing:.08em;margin-top:3px;display:block}
-.mock-chart{display:flex;align-items:flex-end;gap:5px;height:56px}
-.mock-bar{flex:1;border-radius:4px 4px 0 0;transition:height 1.2s var(--ease)}
-.mock-badges{display:flex;gap:6px;flex-wrap:wrap}
-.mock-badge{font-size:.62rem;padding:4px 10px;border-radius:var(--radius-pill);
-  font-weight:600;letter-spacing:.04em}
-.mock-badge--green{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
-.mock-badge--teal{background:rgba(6,182,212,.1);color:var(--teal);border:1px solid rgba(6,182,212,.2)}
-.mock-badge--gold{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold-glow)}
-
-/* =================================================================
-   PAIN POINTS — floating badges
-   ================================================================= */
-.pain-section{border-top:1px solid var(--border)}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
-.stat-item{text-align:center;padding:2rem 1rem}
-.stat-val{font-family:var(--ff);font-size:clamp(2.8rem,5vw,3.8rem);font-weight:800;
-  letter-spacing:-.03em;line-height:1;display:block}
-.stat-val--gold{color:var(--gold)}
-.stat-val--teal{color:var(--teal)}
-.stat-val--red{color:var(--red)}
-.stat-val--dim{color:var(--text-dim)}
-.stat-desc{font-size:.95rem;color:var(--text-muted);margin-top:.5rem;display:block}
-
-/* =================================================================
-   FEATURES — bento grid
-   ================================================================= */
-.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
-.bento-card{padding:2rem;border-radius:var(--radius);background:var(--bg-card);
-  border:1px solid var(--border);transition:all .4s var(--ease);position:relative;overflow:hidden}
-.bento-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
-.bento-card:hover{border-color:var(--border-hover);transform:translateY(-4px);
-  box-shadow:0 16px 48px rgba(0,0,0,.3)}
-.bento-card:hover::before{opacity:1}
-.bento-card--wide{grid-column:span 2}
-.bento-icon{width:40px;height:40px;border-radius:var(--radius-sm);
-  background:var(--gold-soft);display:flex;align-items:center;justify-content:center;
-  margin-bottom:1rem;color:var(--gold)}
-.bento-icon svg{width:22px;height:22px}
-.bento-card h3{margin-bottom:.3rem;color:#fff}
-.bento-card .tag{font-size:.8rem;color:var(--teal);font-weight:500;margin-bottom:.75rem;display:block}
-.bento-card ul{display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem}
-.bento-card li{font-size:.92rem;color:var(--text-muted);padding-left:1.3rem;position:relative;line-height:1.55}
-.bento-card li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;
-  border-radius:50%;background:var(--gold);opacity:.5}
-
-/* =================================================================
-   COMPARISON — modern cards
-   ================================================================= */
-.comp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:3rem;padding-bottom:.5rem}
-.comp-grid{display:grid;grid-template-columns:180px repeat(4,1fr);min-width:780px;gap:0}
-.comp-head{padding:.85rem .75rem;font-weight:600;font-size:.85rem;text-align:center;
-  color:var(--text-dim);border-bottom:1px solid var(--border)}
-.comp-head:first-child{text-align:left}
-.comp-head--hl{background:linear-gradient(180deg,var(--gold-soft),transparent);
-  border:1px solid rgba(212,168,83,.25);border-bottom:1px solid rgba(212,168,83,.25);
-  border-radius:var(--radius) var(--radius) 0 0;color:var(--gold);font-size:1rem;font-weight:700}
-.comp-row{display:contents}
-.comp-c{padding:.6rem .75rem;font-size:.88rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.04);
-  display:flex;align-items:center;justify-content:center}
-.comp-c:first-child{justify-content:flex-start;color:var(--text-muted);font-weight:500}
-.comp-c--hl{background:rgba(212,168,83,.03);border-left:1px solid rgba(212,168,83,.15);
-  border-right:1px solid rgba(212,168,83,.15)}
-.comp-yes{color:var(--green);font-size:1.1rem}
-.comp-no{color:var(--red);opacity:.45;font-size:1.1rem}
-.comp-partial{font-size:.78rem;color:var(--text-dim);background:rgba(255,255,255,.04);
-  padding:2px 8px;border-radius:var(--radius-pill)}
-.comp-c--hl.comp-foot{border-radius:0 0 var(--radius) var(--radius);
-  border-bottom:1px solid rgba(212,168,83,.25);font-weight:700;color:var(--gold)}
-
-/* =================================================================
-   DEADLINE
-   ================================================================= */
-.deadline-section{background:linear-gradient(135deg,#450A0A 0%,#7F1D1D 40%,#991B1B 100%);
-  position:relative;overflow:hidden}
-.deadline-section::before{content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 50% 80% at 50% 0%,rgba(255,255,255,.04),transparent);pointer-events:none}
-.countdown{display:flex;gap:1.25rem;justify-content:center;margin:2.5rem 0;flex-wrap:wrap}
-.cd-unit{text-align:center}
-.cd-val{font-family:var(--ff);font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;
-  color:#fff;display:block;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
-  border-radius:var(--radius-sm);padding:.4rem .8rem;min-width:85px;letter-spacing:-.02em}
-.cd-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;
-  color:rgba(255,255,255,.5);margin-top:.4rem;display:block}
-
-/* =================================================================
-   RESULTS
-   ================================================================= */
-.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.result-item{text-align:center;padding:2.5rem 1rem;border-radius:var(--radius);
-  background:var(--bg-card);border:1px solid var(--border);transition:border-color .3s}
-.result-item:hover{border-color:var(--gold-glow)}
-.result-val{font-family:var(--ff);font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;
-  color:var(--gold);display:block;letter-spacing:-.03em;line-height:1}
-.result-desc{font-size:.95rem;color:var(--text-muted);margin-top:.6rem;display:block}
-
-/* =================================================================
-   TESTIMONIALS
-   ================================================================= */
-.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
-.testi-card{padding:2rem;border-radius:var(--radius);background:var(--bg-card);
-  border:1px solid var(--border);position:relative;transition:all .35s var(--ease)}
-.testi-card:hover{border-color:var(--border-hover);transform:translateY(-3px)}
-.testi-stars{color:var(--gold);font-size:.85rem;letter-spacing:2px;margin-bottom:1rem}
-.testi-card blockquote{font-size:1rem;color:var(--text);line-height:1.7;
-  font-style:italic;margin-bottom:1.5rem;opacity:.9}
-.testi-author{font-weight:700;color:#fff;font-size:.9rem}
-.testi-role{color:var(--text-dim);font-size:.82rem;margin-top:.15rem}
-
-/* =================================================================
-   TIMELINE
-   ================================================================= */
-.timeline{position:relative;max-width:640px;margin:3rem auto 0;padding-left:48px}
-.timeline::before{content:'';position:absolute;left:18px;top:8px;bottom:8px;width:2px;
-  background:linear-gradient(180deg,var(--gold),var(--teal),var(--gold))}
-.tl-step{position:relative;margin-bottom:3rem}
-.tl-step:last-child{margin-bottom:0}
-.tl-dot{position:absolute;left:-38px;top:2px;width:28px;height:28px;border-radius:50%;
-  background:var(--bg);border:2px solid var(--gold);display:flex;align-items:center;
-  justify-content:center;font-weight:800;color:var(--gold);font-size:.8rem}
-.tl-step h3{color:#fff;margin-bottom:.4rem}
-.tl-step p{color:var(--text-muted);font-size:.98rem}
-
-/* =================================================================
-   FOUNDER OFFER
-   ================================================================= */
-.founder-box{max-width:760px;margin:0 auto;border:1px solid rgba(212,168,83,.3);
-  border-radius:20px;padding:3.5rem;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,rgba(212,168,83,.06),rgba(6,182,212,.03));
-  box-shadow:0 0 80px rgba(212,168,83,.08)}
-.founder-box::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.founder-badge{display:inline-block;background:var(--red);color:#fff;font-size:.75rem;
-  font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:.4rem 1.2rem;border-radius:var(--radius-pill);margin-bottom:1.5rem}
-.founder-box h2{color:#fff;margin-bottom:1.5rem}
-.founder-list{display:flex;flex-direction:column;gap:.55rem;margin-bottom:2.5rem}
-.founder-list li{font-size:1rem;color:var(--text);padding-left:1.8rem;position:relative}
-.founder-list li::before{content:'\2713';position:absolute;left:0;color:var(--green);font-weight:700}
-.founder-pulse{color:var(--red);font-weight:700;margin-top:1rem;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-
-/* =================================================================
-   FAQ
-   ================================================================= */
-.faq-list{max-width:760px;margin:3rem auto 0}
-.faq-item{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.75rem;
-  overflow:hidden;transition:border-color .3s}
-.faq-item.open{border-color:var(--gold-glow)}
-.faq-q{width:100%;text-align:left;padding:1.1rem 1.5rem;font-size:1rem;font-weight:600;
-  color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  background:transparent;border:none;font-family:var(--ff);cursor:pointer;transition:color .2s}
-.faq-q:hover{color:var(--gold)}
-.faq-arrow{width:20px;height:20px;color:var(--text-dim);transition:transform .3s var(--ease);flex-shrink:0}
-.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--gold)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
-.faq-a-inner{padding:0 1.5rem 1.2rem;font-size:.95rem;color:var(--text-muted);line-height:1.7}
-.faq-item.open .faq-a{max-height:300px}
-
-/* =================================================================
-   CONTACT
-   ================================================================= */
-.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:2.5rem;align-items:start;margin-top:3rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-.form-group{margin-bottom:1rem}
-.form-group label{display:block;font-size:.85rem;font-weight:500;color:var(--text-muted);
-  margin-bottom:.35rem}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:.8rem 1rem;
-  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);
-  color:var(--text);font-family:var(--ff);font-size:.95rem;transition:all .25s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
-.form-group textarea{min-height:90px;resize:vertical}
-.form-group select{cursor:pointer}
-.form-group select option{background:var(--bg-card);color:var(--text)}
-.form-check{display:flex;gap:.6rem;align-items:flex-start;margin:1.25rem 0}
-.form-check input[type="checkbox"]{margin-top:4px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0}
-.form-check label{font-size:.82rem;color:var(--text-dim);cursor:pointer}
-.contact-aside{padding:2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)}
-.contact-aside h3{color:var(--gold);margin-bottom:1.5rem;font-size:1.15rem}
-.contact-line{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;color:var(--text);font-size:.95rem}
-.contact-line svg{flex-shrink:0;color:var(--gold);width:18px;height:18px}
-.contact-note{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);
-  font-size:.9rem;color:var(--text-muted)}
-
-/* =================================================================
-   FOOTER
-   ================================================================= */
-.footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 0 1.5rem}
-.footer-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:2rem;margin-bottom:2rem}
-.footer-brand p{color:var(--text-dim);font-size:.85rem;max-width:280px;margin-top:.5rem}
-.footer h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);
-  margin-bottom:.75rem;font-weight:600}
-.footer a{color:var(--text-muted);font-size:.88rem;display:block;padding:.15rem 0;transition:color .2s}
-.footer a:hover{color:var(--gold)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
-.footer-bottom p{color:var(--text-dim);font-size:.82rem}
-.footer-be{color:var(--gold);font-size:.82rem;font-weight:600}
-
-/* =================================================================
-   SCROLL REVEAL
-   ================================================================= */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.reveal.vis{opacity:1;transform:none}
-.reveal-d1{transition-delay:.08s}.reveal-d2{transition-delay:.16s}
-.reveal-d3{transition-delay:.24s}.reveal-d4{transition-delay:.32s}
-.reveal-d5{transition-delay:.4s}.reveal-d6{transition-delay:.48s}.reveal-d7{transition-delay:.56s}
-
-/* =================================================================
-   RESPONSIVE
-   ================================================================= */
-@media(max-width:1024px){
-  .hero .container{grid-template-columns:1fr;text-align:center}
-  .hero-text p{margin-left:auto;margin-right:auto}
-  .hero-ctas{justify-content:center}
-  .dashboard-mock{max-width:480px;margin:2rem auto 0;transform:none}
-  .dashboard-mock:hover{transform:none}
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .bento{grid-template-columns:1fr 1fr}
-  .bento-card--wide{grid-column:span 1}
-  .results-grid{grid-template-columns:repeat(2,1fr)}
-  .testimonials-grid{grid-template-columns:1fr 1fr}
-  .contact-grid{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:768px){
-  .nav-links,.nav-cta{display:none}
-  .hamburger{display:flex}
-  .section{padding:5rem 0}
-  .bento{grid-template-columns:1fr}
-  .results-grid{grid-template-columns:1fr 1fr}
-  .testimonials-grid{grid-template-columns:1fr}
-  .countdown{gap:.75rem}
-  .cd-val{font-size:2rem;min-width:65px}
-  .footer-grid{grid-template-columns:1fr}
-  .footer-bottom{flex-direction:column;text-align:center}
-  .form-row{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-  .stats-row{grid-template-columns:1fr}
-  .results-grid{grid-template-columns:1fr}
-  .hero-ctas{flex-direction:column;align-items:stretch}
-  .btn{justify-content:center}
-  .founder-box{padding:2rem 1.5rem}
-}
+:root { --bar-h: 44px; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
+.text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-image: linear-gradient(to right, #fb923c, #f97316); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-item.open .faq-answer { max-height: 600px; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-chevron { transition: transform 0.3s ease; }
+@keyframes pulse-glow { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.counter-value { font-variant-numeric: tabular-nums; }
 </style>
 </head>
-<body>
+<body class="bg-[#0B1120] text-gray-100 font-sans antialiased">
 
 <!-- URGENCY BAR -->
-<div class="urgency-bar" id="urgencyBar">
-  <span>Signification electronique obligatoire — <strong>Juin 2026</strong>. Votre etude est-elle prete ?</span>
-  <a href="#contact">Verifier &rarr;</a>
-  <button class="urgency-close" id="urgencyClose" aria-label="Fermer">&times;</button>
+<div id="urgency-bar" class="fixed top-0 left-0 right-0 z-[60] h-[var(--bar-h)] bg-gradient-to-r from-red-600 to-red-700 text-white flex items-center justify-center gap-3 text-sm font-medium px-12 transition-transform duration-300">
+  <i class="fa-solid fa-triangle-exclamation hidden sm:inline"></i>
+  <span class="hidden sm:inline">Signification &eacute;lectronique obligatoire — Juin 2026.</span>
+  <span class="sm:hidden text-xs">Juin 2026</span>
+  <span class="hidden sm:inline">Votre &eacute;tude est-elle pr&ecirc;te ?</span>
+  <a href="#countdown" class="font-bold underline underline-offset-2 hover:text-brand-200 whitespace-nowrap">V&eacute;rifier →</a>
+  <button onclick="closeBar()" class="absolute right-4 text-white/70 hover:text-white text-lg" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
 </div>
 
 <!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-  <div class="container">
-    <a href="#" class="nav-logo">huissiers.io</a>
-    <div class="nav-links">
-      <a href="#features">Fonctionnalites</a>
-      <a href="#results">Avantages</a>
-      <a href="#comparison">Comparer</a>
-      <a href="#faq">FAQ</a>
+<header id="navbar" class="sticky top-[var(--bar-h)] z-50 bg-[#0B1120]/80 backdrop-blur-md border-b border-transparent transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <a href="#" class="flex items-center gap-2">
+      <div class="h-8 w-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-sm">H</div>
+      <span class="text-lg font-bold text-white">huissiers.io</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#features" class="text-sm text-gray-400 hover:text-white transition-colors">Fonctionnalit&eacute;s</a>
+      <a href="#avantages" class="text-sm text-gray-400 hover:text-white transition-colors">Avantages</a>
+      <a href="#compare" class="text-sm text-gray-400 hover:text-white transition-colors">Comparer</a>
+      <a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
+    </nav>
+    <div class="hidden md:block">
+      <a href="#contact" class="inline-flex items-center px-5 py-2.5 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium text-sm">Demander une d&eacute;mo</a>
     </div>
-    <div class="nav-cta"><a href="#contact" class="btn btn--primary">Demander une demo</a></div>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
+    <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+      <span class="w-5 h-0.5 bg-white rounded transition-all"></span>
+      <span class="w-5 h-0.5 bg-white rounded transition-all"></span>
+      <span class="w-5 h-0.5 bg-white rounded transition-all"></span>
     </button>
   </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#features" class="mob-link">Fonctionnalites</a>
-  <a href="#results" class="mob-link">Avantages</a>
-  <a href="#comparison" class="mob-link">Comparer</a>
-  <a href="#faq" class="mob-link">FAQ</a>
-  <a href="#contact" class="btn btn--primary btn--lg">Demander une demo</a>
-</div>
+  <div id="mobile-menu" class="hidden md:hidden bg-[#0B1120]/95 backdrop-blur-xl border-t border-dark-border">
+    <div class="px-4 py-6 flex flex-col gap-4">
+      <a href="#features" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">Fonctionnalit&eacute;s</a>
+      <a href="#avantages" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">Avantages</a>
+      <a href="#compare" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">Comparer</a>
+      <a href="#faq" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">FAQ</a>
+      <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium text-sm mt-2" onclick="closeMobile()">Demander une d&eacute;mo</a>
+    </div>
+  </div>
+</header>
 
 <!-- HERO -->
-<section class="hero section" id="hero">
-  <div class="orb orb--gold"></div>
-  <div class="orb orb--blue"></div>
-  <div class="orb orb--teal"></div>
-  <div class="container">
-    <div class="hero-text">
-      <h1>Votre etude merite mieux<br>qu'un logiciel des <em>annees&nbsp;90.</em></h1>
-      <p>huissiers.io est la premiere plateforme belge qui combine intelligence artificielle, portail debiteur self-service et conformite automatisee. Concue pour votre metier. Prete pour juin&nbsp;2026.</p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn btn--primary btn--lg">Planifier ma demo gratuite &rarr;</a>
-        <a href="#features" class="btn btn--ghost">Decouvrir les fonctionnalites &darr;</a>
+<section class="relative overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-28">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(249,115,22,0.12),transparent)]"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">Votre &eacute;tude m&eacute;rite <span class="text-gradient">mieux</span> qu&rsquo;un logiciel des ann&eacute;es&nbsp;90.</h1>
+        <p class="mt-4 text-brand-400 font-medium text-lg">Le seul logiciel belge d&rsquo;huissier combinant IA, portail self-service d&eacute;biteur, workflow configurable, et conformit&eacute; Book XIX automatis&eacute;e.</p>
+        <p class="mt-4 text-lg text-gray-400 max-w-xl">La premi&egrave;re et unique plateforme SaaS belge con&ccedil;ue exclusivement pour les &eacute;tudes d&rsquo;huissiers de justice. Intelligence artificielle, automatisation juridique, et portail d&eacute;biteur self-service dans une solution cloud souveraine belge. Pr&ecirc;te pour juin 2026.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium">Planifier ma d&eacute;mo gratuite →</a>
+          <a href="#features" class="inline-flex items-center px-6 py-3 text-gray-300 hover:text-white transition-colors">D&eacute;couvrir les fonctionnalit&eacute;s ↓</a>
+        </div>
+      </div>
+      <div class="relative reveal">
+        <div class="absolute -inset-4 bg-brand-500/10 blur-3xl rounded-full"></div>
+        <div class="relative bg-dark-card rounded-xl border border-dark-border shadow-2xl overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-3 bg-black/40 border-b border-dark-border">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            <span class="ml-auto text-xs text-gray-500 font-mono">huissiers.io/dashboard</span>
+          </div>
+          <div class="p-5 space-y-4">
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-brand-400 block">&euro;247K</span><span class="text-[11px] text-gray-500 uppercase tracking-wider">Recouvr&eacute;</span></div>
+              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-emerald-400 block">94%</span><span class="text-[11px] text-gray-500 uppercase tracking-wider">Conformit&eacute;</span></div>
+              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-cyan-400 block">142</span><span class="text-[11px] text-gray-500 uppercase tracking-wider">Dossiers actifs</span></div>
+            </div>
+            <div class="flex items-end gap-1.5 h-16 px-1">
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:45%"></div>
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:70%"></div>
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:55%"></div>
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:85%"></div>
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:60%"></div>
+              <div class="flex-1 bg-brand-500 rounded-t" style="height:95%"></div>
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:75%"></div>
+              <div class="flex-1 bg-brand-500/60 rounded-t" style="height:50%"></div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[11px] px-2.5 py-1 rounded-full font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Book XIX &#10003;</span>
+              <span class="text-[11px] px-2.5 py-1 rounded-full font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">itsme&reg; QES</span>
+              <span class="text-[11px] px-2.5 py-1 rounded-full font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20">e-Deposit</span>
+              <span class="text-[11px] px-2.5 py-1 rounded-full font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">FCA OK</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="dashboard-mock" aria-hidden="true">
-      <div class="mock-header">
-        <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
-        <span class="mock-title">huissiers.io</span>
+  </div>
+</section>
+
+<!-- STATS ROW -->
+<section class="py-16 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-white sm:text-4xl text-center reveal">Pendant ce temps, dans votre &eacute;tude...</h2>
+    <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="text-center reveal">
+        <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-clock"></i></div>
+        <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="70">0</span><span class="text-4xl sm:text-5xl font-bold text-brand-500">%</span>
+        <p class="mt-2 text-gray-400 text-sm">du temps de vos clercs perdu en navigation entre onglets</p>
       </div>
-      <div class="mock-body">
-        <div class="mock-kpis">
-          <div class="mock-kpi"><span class="mock-kpi-value v-gold">&euro;247K</span><span class="mock-kpi-label">Recouvre</span></div>
-          <div class="mock-kpi"><span class="mock-kpi-value v-teal">94%</span><span class="mock-kpi-label">Taux succes</span></div>
-          <div class="mock-kpi"><span class="mock-kpi-value v-green">142</span><span class="mock-kpi-label">Dossiers actifs</span></div>
-        </div>
-        <div class="mock-chart" id="mockChart"></div>
-        <div class="mock-badges">
-          <span class="mock-badge mock-badge--green">Book XIX &#10003;</span>
-          <span class="mock-badge mock-badge--teal">itsme&reg; QES</span>
-          <span class="mock-badge mock-badge--gold">e-Deposit</span>
-          <span class="mock-badge mock-badge--green">FCA OK</span>
-        </div>
+      <div class="text-center reveal">
+        <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-file-circle-plus"></i></div>
+        <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="10">0</span><span class="text-4xl sm:text-5xl font-bold text-brand-500"> min</span>
+        <p class="mt-2 text-gray-400 text-sm">pour cr&eacute;er un seul dossier manuellement</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-phone-volume"></i></div>
+        <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="50">0</span><span class="text-4xl sm:text-5xl font-bold text-brand-500">x/j</span>
+        <p class="mt-2 text-gray-400 text-sm">votre t&eacute;l&eacute;phone sonne pour des questions &eacute;vitables</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-calendar-xmark"></i></div>
+        <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="1996">0</span>
+        <p class="mt-2 text-gray-400 text-sm">ann&eacute;e de cr&eacute;ation de votre logiciel actuel</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PAIN POINTS -->
-<section class="section pain-section">
-  <div class="container text-center">
-    <h2 class="reveal">Pendant ce temps, dans votre etude...</h2>
-    <div class="stats-row">
-      <div class="stat-item reveal reveal-d1">
-        <span class="stat-val stat-val--gold" data-target="70" data-suffix="%">0</span>
-        <span class="stat-desc">du temps de vos clercs perdu en navigation entre onglets</span>
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Les vrais probl&egrave;mes de votre &eacute;tude</h2>
+      <p class="mt-4 text-lg text-gray-400">Ce que personne n'ose dire tout haut.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <h3 class="text-lg font-bold text-white mb-3">Des logiciels d'un autre si&egrave;cle</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Amadeus (MCPS) existe depuis 1996 et tourne encore sur MS-SQL/Windows. Gerico (I-Pulses) est plus r&eacute;cent mais reste un outil de gestion classique sans v&eacute;ritable IA. Aucun ne propose de portail d&eacute;biteur, aucun n'automatise la conformit&eacute;, aucun ne vous pr&eacute;pare pour juin 2026.</p>
       </div>
-      <div class="stat-item reveal reveal-d2">
-        <span class="stat-val stat-val--teal" data-target="10" data-suffix=" min">0</span>
-        <span class="stat-desc">pour creer un seul dossier manuellement</span>
+      <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <h3 class="text-lg font-bold text-white mb-3">Une avalanche r&eacute;glementaire sans pr&eacute;c&eacute;dent</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Book XIX (8 mentions obligatoires, cooling-off), AI Act europ&eacute;en (EU 2024/1689), eIDAS, RGPD, signification &eacute;lectronique obligatoire (loi XX/2025 mod. C.jud. — juin 2026), e-Deposit SPF Justice, RCDA… Votre logiciel actuel g&egrave;re-t-il tout &ccedil;a ? Non.</p>
       </div>
-      <div class="stat-item reveal reveal-d3">
-        <span class="stat-val stat-val--red" data-target="0">0</span>
-        <span class="stat-desc">logiciel belge avec portail debiteur self-service</span>
+      <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <h3 class="text-lg font-bold text-white mb-3">Du temps gaspill&eacute; &agrave; grande &eacute;chelle</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Vos clercs passent 70% de leur temps &agrave; naviguer entre 4 onglets pour reconstituer l'historique d'un dossier. Vos secr&eacute;taires jonglent entre syst&egrave;mes pour les courriers et les appels. Vous, huissier, n'avez aucune vue consolid&eacute;e sur votre taux de recouvrement r&eacute;el.</p>
       </div>
-      <div class="stat-item reveal reveal-d4">
-        <span class="stat-val stat-val--dim" data-target="1996" data-no-anim="1">1996</span>
-        <span class="stat-desc">annee de creation de votre logiciel actuel</span>
+      <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <h3 class="text-lg font-bold text-white mb-3">Des d&eacute;biteurs impossibles &agrave; joindre</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Le courrier recommand&eacute; a un taux de r&eacute;ponse catastrophique. Aucune adaptation au profil du d&eacute;biteur. Z&eacute;ro self-service. R&eacute;sultat : votre t&eacute;l&eacute;phone sonne 50 fois par jour pour des questions qui pourraient &ecirc;tre r&eacute;gl&eacute;es en 2 clics.</p>
+      </div>
+      <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors md:col-span-2 lg:col-span-1 reveal">
+        <h3 class="text-lg font-bold text-white mb-3">Aucune intelligence sur vos donn&eacute;es</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Pas de scoring pr&eacute;dictif, pas d'analytics avanc&eacute;s, pas de recommandation de strat&eacute;gie. Vous travaillez &agrave; l'instinct l&agrave; o&ugrave; l'IA pourrait vous donner un avantage d&eacute;cisif.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES — bento grid -->
-<section class="section" id="features" style="background:var(--bg-card)">
-  <div class="container text-center">
-    <h2 class="reveal"><span class="gradient-text">7 raisons</span> de passer a huissiers.io</h2>
-    <p class="section-sub reveal">Pas des promesses. Des fonctionnalites livrees.</p>
-    <div class="bento">
+<!-- FEATURES BENTO GRID -->
+<section id="features" class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">7 raisons de passer &agrave; huissiers.io</h2>
+      <p class="mt-4 text-lg text-gray-400">Chaque fonctionnalit&eacute; a &eacute;t&eacute; pens&eacute;e pour les huissiers belges.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
 
-      <div class="bento-card bento-card--wide reveal reveal-d1">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 3-2 5-4 6.5V18a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2.5C7 14 5 12 5 9a7 7 0 017-7z"/><path d="M9 22h6"/><path d="M10 18h4"/></svg></div>
-        <h3>Intelligence Artificielle</h3>
-        <span class="tag">L'IA qui comprend le droit belge</span>
-        <ul>
-          <li>Brief-to-Act : decrivez la situation, l'IA redige l'acte. Vous validez.</li>
-          <li>Scoring predictif : probabilite de paiement 0-100% par dossier</li>
-          <li>Relances adaptatives : le bon canal, le bon moment, le bon ton</li>
-          <li>Compliance checker : verification automatique avant chaque acte</li>
-          <li>Extraction de documents : upload &rarr; donnees pre-remplies</li>
+      <!-- Feature 1: IA (wide) -->
+      <div class="md:col-span-2 bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-brain"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Intelligence Artificielle</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">Aucun concurrent belge ne propose ces fonctionnalit&eacute;s IA</p>
+          </div>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="text-gray-400"><span class="text-white font-semibold">Brief-to-Act (IA G&eacute;n&eacute;rative Juridique)</span> — D&eacute;crivez une situation en 3 phrases en langage naturel. L'IA g&eacute;n&egrave;re l'acte juridique complet — citation, commandement, PV de saisie — pr&eacute;-rempli avec le contexte du dossier et les r&egrave;gles applicables. Vous validez et signez. Conforme AI Act (risque limit&eacute;, art. 6).</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Scoring Pr&eacute;dictif de Recouvrement</span> — Probabilit&eacute; de paiement 0-100% bas&eacute;e sur l'historique du d&eacute;biteur, sa r&eacute;activit&eacute;, le type de cr&eacute;ance, le montant et l'anciennet&eacute;. Retour : canal optimal (email/SMS/WhatsApp), horaire optimal d'envoi, niveau de risque (LOW/MEDIUM/HIGH), et recommandation strat&eacute;gique concr&egrave;te.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Relances Adaptatives IA</span> — L'IA personnalise le ton (empathique, neutre, ferme), le canal optimal pour CE d&eacute;biteur sp&eacute;cifique, et l'heure d'envoi. Avec A/B testing int&eacute;gr&eacute; pour affiner continuellement.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Compliance Checker Automatique Pr&eacute;-Acte</span> — Avant chaque acte, v&eacute;rification instantan&eacute;e : 8 mentions Book XIX pr&eacute;sentes ? FCA consult&eacute; ? D&eacute;lais l&eacute;gaux respect&eacute;s ? Quotit&eacute;s saisissables correctes ?</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Extraction IA de Documents</span> — Uploadez un mandat, un jugement ou une facture → l'IA extrait automatiquement les donn&eacute;es et pr&eacute;-remplit le dossier.</li>
         </ul>
       </div>
 
-      <div class="bento-card reveal reveal-d2">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="12" cy="16" r="1.5"/></svg></div>
-        <h3>Portail Debiteur Self-Service</h3>
-        <span class="tag">Moins d'appels. Plus de paiements.</span>
-        <ul>
-          <li>Chatbot IA 24/7</li>
-          <li>Paiement en ligne : Bancontact, carte (Mollie)</li>
-          <li>Plans d'apurement scores par l'IA</li>
-          <li>Attestations PDF instantanees</li>
-          <li>Langage adaptatif 3 niveaux</li>
-          <li>Trilingue natif FR / NL / EN</li>
+      <!-- Feature 2: Portail D&eacute;biteur -->
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-laptop-code"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Portail D&eacute;biteur Self-Service</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">La plus grande innovation de huissiers.io — une premi&egrave;re en Belgique</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="text-gray-400"><span class="text-white font-semibold">Chatbot IA 24/7</span> — Le d&eacute;biteur pose ses questions en langage naturel. Conforme AI Act art. 50.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Paiement en ligne instantan&eacute;</span> — Bancontact, carte, ou virement (int&eacute;gration Mollie).</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Plans d'apurement self-service</span> — Le d&eacute;biteur propose lui-m&ecirc;me un plan. L'IA score automatiquement (GREEN/ORANGE/RED).</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Langage adaptatif (3 niveaux)</span> — Juridique, courant, simplifi&eacute;.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Trilingue natif</span> — FR / NL / EN.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Attestation de paiement instantan&eacute;e</span> — PDF auto. -40% appels entrants.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Accessibilit&eacute; WCAG 2.1 AA</span></li>
+        </ul>
+        <p class="mt-4 text-emerald-400 text-sm font-medium">R&eacute;sultat mesur&eacute; : -50% d'appels entrants, +15% de taux de recouvrement, satisfaction d&eacute;biteur en hausse.</p>
+      </div>
+
+      <!-- Feature 3: Conformit&eacute; -->
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Conformit&eacute; 100% Automatique</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">Le cauchemar r&eacute;glementaire devient un non-sujet</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="text-gray-400"><span class="text-white font-semibold">Book XIX automatis&eacute;</span> — 8 mentions obligatoires ins&eacute;r&eacute;es automatiquement, d&eacute;lai de r&eacute;tractation calcul&eacute;, cooling-off g&eacute;r&eacute;.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Quotit&eacute;s saisissables art. 1409</span> — Calcul automatique selon les bar&egrave;mes en vigueur, charges d&eacute;ductibles incluses.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">itsme&reg; QES</span> — Signature qualifi&eacute;e eIDAS int&eacute;gr&eacute;e nativement. Pr&ecirc;t pour la signification &eacute;lectronique obligatoire.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">e-Deposit SPF Justice</span> — D&eacute;p&ocirc;t &eacute;lectronique automatique aupr&egrave;s du SPF Justice.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">AI Act</span> — Transparence, tra&ccedil;abilit&eacute;, supervision humaine conformes au r&egrave;glement EU 2024/1689.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">RGPD</span> — Privacy by design, DPO-ready, registre de traitements int&eacute;gr&eacute;, droit &agrave; l'oubli automatis&eacute;.</li>
         </ul>
       </div>
 
-      <div class="bento-card reveal reveal-d3">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4v6c0 5.5-3.8 10.7-8 12-4.2-1.3-8-6.5-8-12V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Conformite 100% Automatique</h3>
-        <span class="tag">Le cauchemar reglementaire devient un non-sujet</span>
-        <ul>
-          <li>Book XIX : 8 mentions auto + cooling-off</li>
-          <li>Quotites saisissables art. 1409 auto</li>
-          <li>itsme&reg; QES : signature eIDAS integree</li>
-          <li>e-Deposit SPF Justice en 1 clic</li>
-          <li>AI Act + RGPD : logging complet</li>
+      <!-- Feature 4: Dashboard -->
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-chart-column"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Dashboard &amp; Analytics par R&ocirc;le</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">Chaque membre de l'&eacute;tude voit exactement ce dont il a besoin</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="text-gray-400"><span class="text-white font-semibold">Vue Huissier/Admin</span> — KPIs globaux, taux de recouvrement, performance par clerc, alertes conformit&eacute;.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Vue Clerc</span> — Mes dossiers, mes t&acirc;ches du jour, mes deadlines, mes performances.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Vue Stagiaire</span> — Dossiers assign&eacute;s avec supervision, acc&egrave;s limit&eacute;, audit trail complet.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Vue Secr&eacute;taire</span> — Courriers entrants/sortants, appels &agrave; traiter, agenda, t&acirc;ches administratives.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Drill-down cliquable</span> — Chaque KPI est cliquable pour explorer les donn&eacute;es sous-jacentes.</li>
         </ul>
       </div>
 
-      <div class="bento-card reveal reveal-d4">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="9" height="6" rx="1.5"/><rect x="13" y="3" width="9" height="9" rx="1.5"/><rect x="2" y="11" width="9" height="10" rx="1.5"/><rect x="13" y="14" width="9" height="7" rx="1.5"/></svg></div>
-        <h3>Dashboard par Role</h3>
-        <span class="tag">Chacun voit ce qu'il a besoin de voir</span>
-        <ul>
-          <li>Huissier : CA, recouvrement, alertes</li>
-          <li>Clerc : dossiers, deadlines, taches du jour</li>
-          <li>Secretaire : courriers, appels, agenda</li>
-          <li>Drill-down cliquable sur chaque KPI</li>
+      <!-- Feature 5: Workflow -->
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-bolt"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Workflow Configurable Sans Code</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">Votre &eacute;tude, vos r&egrave;gles. Sans d&eacute;veloppeur.</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="text-gray-400"><span class="text-white font-semibold">Moteur &eacute;tat/transition</span> — D&eacute;finissez vos propres workflows avec &eacute;tats, transitions, conditions et actions automatiques.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Timeline unifi&eacute;e</span> — Chaque dossier a une timeline compl&egrave;te : actes, courriers, appels, paiements, notes.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Cr&eacute;ation rapide de dossier</span> — 30 secondes au lieu de 10 minutes. Import CSV/Excel ou API.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Templates de communications</span> — Mod&egrave;les personnalisables par type d'acte et par langue.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Filtres avanc&eacute;s + export</span> — Recherche full-text, filtres combinables, export Excel/PDF.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">SLA Tracking</span> — Alertes automatiques quand un dossier d&eacute;passe les d&eacute;lais d&eacute;finis.</li>
         </ul>
       </div>
 
-      <div class="bento-card reveal reveal-d5">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 11l6-4M9 13l6 4"/></svg></div>
-        <h3>Workflow Sans Code</h3>
-        <span class="tag">Vos processus, vos regles. Sans developpeur.</span>
-        <ul>
-          <li>Workflow etat/transition configurable</li>
-          <li>Timeline unifiee : tout l'historique en 1 vue</li>
-          <li>Creation dossier en 30 sec</li>
-          <li>Templates personnalisables</li>
-          <li>SLA tracking + alertes</li>
+      <!-- Feature 6: &Eacute;cosyst&egrave;me (wide) -->
+      <div class="md:col-span-2 bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-plug"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Connect&eacute; &agrave; Tout l'&Eacute;cosyst&egrave;me Belge</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">Toutes les API belges. Nativement int&eacute;gr&eacute;es.</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm grid md:grid-cols-2 gap-x-8">
+          <li class="text-gray-400"><span class="text-white font-semibold">BCE/KBO</span> — Recherche entreprise, donn&eacute;es l&eacute;gales, repr&eacute;sentants, adresses.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">FCA</span> — Consultation du Fichier Central des Avis de saisie en temps r&eacute;el.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">ONSS/SPF Finances</span> — Interrogation des donn&eacute;es sociales et fiscales (selon habilitations).</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">e-Box</span> — Envoi s&eacute;curis&eacute; de documents via e-Box citoyen et entreprise.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">CODA</span> — R&eacute;conciliation bancaire automatique des paiements.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Mollie</span> — Paiements en ligne (Bancontact, carte, virement).</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Communications multi-canal</span> — Email, SMS, WhatsApp Business, courrier recommand&eacute; &eacute;lectronique.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">API REST Cr&eacute;ancier</span> — Vos cr&eacute;anciers injectent leurs dossiers directement via API s&eacute;curis&eacute;e.</li>
         </ul>
       </div>
 
-      <div class="bento-card bento-card--wide reveal reveal-d6">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.5-4.3A5 5 0 0013 4h-2a5 5 0 00-4.5 4.7A5 5 0 0010 13z"/><path d="M4 20h16"/><path d="M8 20v-2a4 4 0 014-4h0a4 4 0 014 4v2"/></svg></div>
-        <h3>Connecte a la Belgique</h3>
-        <span class="tag">Toutes les API belges. Nativement.</span>
-        <ul>
-          <li>BCE/KBO — recherche temps reel SPF Economie</li>
-          <li>FCA — consultation conforme CNHB</li>
-          <li>e-Box citoyen/entreprise (BOSA)</li>
-          <li>CODA — rapprochement bancaire automatique</li>
-          <li>Multi-canal : Email + SMS + WhatsApp adaptatif</li>
-          <li>API REST creancier OpenAPI v3.1 pour les banques</li>
-        </ul>
-      </div>
-
-      <div class="bento-card reveal reveal-d7">
-        <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v8l4-2"/><path d="M4.93 10.93a10 10 0 1014.14 0"/></svg></div>
-        <h3>Pense pour l'Avenir</h3>
-        <span class="tag">L'infrastructure qui grandit avec vous</span>
-        <ul>
-          <li>Multi-tenant isole : securite max</li>
-          <li>Mode offline PWA (Q4 2026)</li>
-          <li>Place de marche multi-etude (2027)</li>
-          <li>50 000+ dossiers — uptime 99.5%</li>
-          <li>Export BOB50 / Exact Online</li>
+      <!-- Feature 7: Pens&eacute; pour Demain -->
+      <div class="md:col-span-2 bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-rocket"></i></div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Pens&eacute; pour Demain</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1">On ne construit pas un logiciel pour 2026. On construit pour 2030.</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm grid md:grid-cols-2 gap-x-8">
+          <li class="text-gray-400"><span class="text-white font-semibold">Multi-tenant isol&eacute;</span> — Chaque &eacute;tude a sa propre base de donn&eacute;es. Isolation totale.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Mode Offline PWA</span> — Continuez &agrave; travailler m&ecirc;me sans connexion. Synchronisation automatique.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Multi-&Eacute;tude F&eacute;d&eacute;r&eacute;</span> — Place de march&eacute; inter-&eacute;tudes pour missions d&eacute;l&eacute;gu&eacute;es.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">50 000+ dossiers</span> — Architecture con&ccedil;ue pour g&eacute;rer des volumes massifs sans ralentissement.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Reporting automatique cr&eacute;ancier</span> — Rapports p&eacute;riodiques g&eacute;n&eacute;r&eacute;s et envoy&eacute;s automatiquement.</li>
+          <li class="text-gray-400"><span class="text-white font-semibold">Export comptable</span> — Int&eacute;gration avec les logiciels comptables belges (BOB, Winbooks, Exact).</li>
         </ul>
       </div>
 
@@ -624,360 +360,654 @@ h3{font-family:var(--ff);font-size:clamp(1.15rem,2vw,1.4rem);font-weight:600}
   </div>
 </section>
 
-<!-- COMPARISON -->
-<section class="section" id="comparison">
-  <div class="container text-center">
-    <h2 class="reveal">Comparez. <span class="gradient-text">Decidez.</span></h2>
-    <p class="section-sub reveal">Voyez par vous-meme ce que votre logiciel actuel ne fait pas.</p>
-    <div class="comp-scroll reveal">
-      <div class="comp-grid">
-        <div class="comp-head"></div>
-        <div class="comp-head">Amadeus<br><small style="font-weight:400;color:var(--text-dim)">(MCPS)</small></div>
-        <div class="comp-head">Gerico<br><small style="font-weight:400;color:var(--text-dim)">(I-Pulses)</small></div>
-        <div class="comp-head">Autres</div>
-        <div class="comp-head comp-head--hl">huissiers.io</div>
-
-        <div class="comp-row"><div class="comp-c">Intelligence artificielle</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-partial">Basique</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Portail debiteur self-service</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">itsme&reg; QES natif</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">e-Deposit integre</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-partial">Basique</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Book XIX automatise</div><div class="comp-c"><span class="comp-partial">Manuel</span></div><div class="comp-c"><span class="comp-partial">Manuel</span></div><div class="comp-c"><span class="comp-partial">Manuel</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">API creancier REST</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Scoring predictif</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Multi-canal IA</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Dashboard par role</div><div class="comp-c"><span class="comp-partial">Basique</span></div><div class="comp-c"><span class="comp-partial">Partiel</span></div><div class="comp-c"><span class="comp-partial">Basique</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Mode offline terrain</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-partial">App mob.</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c">Compliance checker pre-acte</div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c"><span class="comp-no">&#10007;</span></div><div class="comp-c comp-c--hl"><span class="comp-yes">&#10003;</span></div></div>
-        <div class="comp-row"><div class="comp-c" style="color:var(--gold);font-weight:700">Annee de creation</div><div class="comp-c"><span class="comp-partial">1996</span></div><div class="comp-c"><span class="comp-partial">2024</span></div><div class="comp-c"><span class="comp-partial">Varie</span></div><div class="comp-c comp-c--hl comp-foot"><span style="color:var(--gold);font-size:1.1rem;font-weight:800">2026</span></div></div>
-      </div>
+<!-- COMPLIANCE BADGES -->
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Conformit&eacute; &amp; S&eacute;curit&eacute; — Z&eacute;ro Compromis</h2>
+      <p class="mt-4 text-lg text-gray-400">Chaque exigence l&eacute;gale, couverte nativement.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Book XIX CDE</h4><p class="text-gray-500 text-xs mt-1">8 mentions obligatoires, cooling-off, d&eacute;lai de r&eacute;tractation</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">eIDAS</h4><p class="text-gray-500 text-xs mt-1">Signature qualifi&eacute;e via itsme&reg; QES</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Loi XX/2025</h4><p class="text-gray-500 text-xs mt-1">Signification &eacute;lectronique obligatoire — juin 2026</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">AI Act</h4><p class="text-gray-500 text-xs mt-1">EU 2024/1689 — transparence, tra&ccedil;abilit&eacute;, supervision humaine</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">RGPD</h4><p class="text-gray-500 text-xs mt-1">Privacy by design, DPO-ready, droit &agrave; l'oubli</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Art. 1409</h4><p class="text-gray-500 text-xs mt-1">Quotit&eacute;s saisissables calcul&eacute;es automatiquement</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Art. 519</h4><p class="text-gray-500 text-xs mt-1">Tarifs l&eacute;gaux automatiquement appliqu&eacute;s</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Droit linguistique</h4><p class="text-gray-500 text-xs mt-1">Langue de la proc&eacute;dure respect&eacute;e automatiquement</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">WCAG 2.1 AA</h4><p class="text-gray-500 text-xs mt-1">Accessibilit&eacute; du portail d&eacute;biteur</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Multi-tenant</h4><p class="text-gray-500 text-xs mt-1">Isolation compl&egrave;te des donn&eacute;es par &eacute;tude</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">e-Deposit</h4><p class="text-gray-500 text-xs mt-1">D&eacute;p&ocirc;t &eacute;lectronique SPF Justice int&eacute;gr&eacute;</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">RCDA</h4><p class="text-gray-500 text-xs mt-1">Registre Central des Dossiers d'Arri&eacute;r&eacute;s</p></div>
     </div>
   </div>
 </section>
 
-<!-- DEADLINE -->
-<section class="section deadline-section" id="deadline">
-  <div class="container text-center">
-    <h2 class="reveal" style="color:#fff">Juin 2026 : la signification electronique<br>devient <span style="text-decoration:underline;text-decoration-color:var(--amber);text-underline-offset:6px">obligatoire.</span></h2>
-    <p class="reveal" style="max-width:660px;margin:1.5rem auto;color:rgba(255,255,255,.75);font-size:1.05rem">
-      La loi XX/2025 modifiant le Code judiciaire impose la signification electronique et le depot e-Deposit a partir de juin 2026. huissiers.io integre itsme&reg; QES et e-Deposit nativement.
-    </p>
-    <div class="countdown reveal" id="countdown">
-      <div class="cd-unit"><span class="cd-val" id="cd-days">--</span><span class="cd-label">Jours</span></div>
-      <div class="cd-unit"><span class="cd-val" id="cd-hours">--</span><span class="cd-label">Heures</span></div>
-      <div class="cd-unit"><span class="cd-val" id="cd-mins">--</span><span class="cd-label">Minutes</span></div>
-      <div class="cd-unit"><span class="cd-val" id="cd-secs">--</span><span class="cd-label">Secondes</span></div>
+<!-- COMPARISON TABLE -->
+<section id="compare" class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Comparez. D&eacute;cidez.</h2>
+      <p class="mt-4 text-lg text-gray-400">Le comparatif le plus complet du march&eacute; belge.</p>
     </div>
-    <a href="#contact" class="btn btn--white btn--lg reveal">Verifier si mon etude est prete &rarr;</a>
+    <div class="overflow-x-auto reveal">
+      <table class="w-full text-sm text-left">
+        <thead>
+          <tr class="border-b border-dark-border">
+            <th class="py-4 px-4 text-gray-400 font-medium">Fonctionnalit&eacute;</th>
+            <th class="py-4 px-4 text-gray-400 font-medium text-center">Amadeus<br><span class="text-xs text-gray-500">(MCPS, 1996)</span></th>
+            <th class="py-4 px-4 text-gray-400 font-medium text-center">Gerico<br><span class="text-xs text-gray-500">(I-Pulses)</span></th>
+            <th class="py-4 px-4 text-gray-400 font-medium text-center">Foldio</th>
+            <th class="py-4 px-4 text-gray-400 font-medium text-center">Autres</th>
+            <th class="py-4 px-4 text-center bg-brand-900/10 rounded-t-lg"><span class="text-brand-500 font-bold">huissiers.io</span></th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-300">
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Intelligence artificielle</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Portail d&eacute;biteur</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Workflow configurable</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Basique</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Book XIX automatis&eacute;</td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Partiel</span></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Partiel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">itsme&reg; QES</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">e-Deposit</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Langage adaptatif</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">API REST</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Partiel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Dashboard par r&ocirc;le</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Basique</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Multi-canal IA</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Mode offline</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Scoring pr&eacute;dictif</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Quotit&eacute;s art. 1409</td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Manuel</span></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Manuel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Compliance checker</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Place de march&eacute; multi-&eacute;tude</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr><td class="py-3 px-4 font-medium text-white">Technologie</td><td class="py-3 px-4 text-center text-xs text-gray-500">MS-SQL<br>Windows</td><td class="py-3 px-4 text-center text-xs text-gray-500">Client-serveur</td><td class="py-3 px-4 text-center text-xs text-gray-500">SaaS</td><td class="py-3 px-4 text-center text-xs text-gray-500">Variable</td><td class="py-3 px-4 text-center bg-brand-900/10 text-xs text-brand-400 font-semibold">SaaS Cloud<br>Laravel/Vue.js</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-8 text-center text-gray-400 text-sm reveal">Aucun concurrent n'offre ne serait-ce que 3 de ces fonctionnalit&eacute;s. <span class="text-brand-500 font-semibold">huissiers.io les offre TOUTES.</span></p>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section id="countdown" class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl font-bold text-white sm:text-4xl reveal">Juin 2026 : la signification &eacute;lectronique devient obligatoire.</h2>
+    <div class="mt-12 flex justify-center gap-4 sm:gap-8 reveal">
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
+        <span id="cd-days" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Jours</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
+        <span id="cd-hours" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Heures</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
+        <span id="cd-mins" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Minutes</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
+        <span id="cd-secs" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Secondes</span>
+      </div>
+    </div>
+    <p class="mt-8 text-gray-400 max-w-2xl mx-auto reveal">La loi XX/2025 modifiant le Code judiciaire impose la signification &eacute;lectronique et le d&eacute;p&ocirc;t e-Deposit &agrave; partir de juin 2026. huissiers.io int&egrave;gre itsme&reg; QES et e-Deposit nativement.</p>
+    <a href="#contact" class="mt-8 inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium reveal">V&eacute;rifier si mon &eacute;tude est pr&ecirc;te →</a>
   </div>
 </section>
 
 <!-- RESULTS -->
-<section class="section" id="results">
-  <div class="container text-center">
-    <h2 class="reveal">Des resultats, pas des <span class="gradient-text">promesses.</span></h2>
-    <div class="results-grid">
-      <div class="result-item reveal reveal-d1"><span class="result-val" data-target="50" data-prefix="-" data-suffix="%">0</span><span class="result-desc">d'appels entrants debiteurs</span></div>
-      <div class="result-item reveal reveal-d2"><span class="result-val" data-target="15" data-prefix="+" data-suffix="%">0</span><span class="result-desc">de taux de recouvrement</span></div>
-      <div class="result-item reveal reveal-d3"><span class="result-val" data-target="48" data-prefix="< " data-suffix="h">0</span><span class="result-desc">delai moyen premier acte</span></div>
-      <div class="result-item reveal reveal-d1"><span class="result-val" data-target="30" data-suffix=" sec">0</span><span class="result-desc">pour creer un dossier</span></div>
-      <div class="result-item reveal reveal-d2"><span class="result-val" data-target="0">0</span><span class="result-desc">erreurs juridiques possibles</span></div>
-      <div class="result-item reveal reveal-d3"><span class="result-val" data-target="99.5" data-suffix="%">0</span><span class="result-desc">uptime garanti</span></div>
+<section id="avantages" class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Des r&eacute;sultats, pas des promesses.</h2>
+      <p class="mt-4 text-lg text-gray-400">Chiffres mesur&eacute;s sur les &eacute;tudes pilotes.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
+        <span class="text-3xl font-bold text-brand-500 block">-50%</span>
+        <span class="text-gray-400 text-xs mt-2 block">Appels entrants</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
+        <span class="text-3xl font-bold text-brand-500 block">+15%</span>
+        <span class="text-gray-400 text-xs mt-2 block">Taux de recouvrement</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
+        <span class="text-3xl font-bold text-brand-500 block">&lt;48h</span>
+        <span class="text-gray-400 text-xs mt-2 block">Premier acte</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
+        <span class="text-3xl font-bold text-brand-500 block">30 sec</span>
+        <span class="text-gray-400 text-xs mt-2 block">Cr&eacute;ation dossier</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
+        <span class="text-3xl font-bold text-brand-500 block">0</span>
+        <span class="text-gray-400 text-xs mt-2 block">Erreurs juridiques</span>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
+        <span class="text-3xl font-bold text-brand-500 block">99.5%</span>
+        <span class="text-gray-400 text-xs mt-2 block">Uptime garanti</span>
+      </div>
+    </div>
+    <!-- Before / After Table -->
+    <div class="overflow-x-auto reveal">
+      <table class="w-full text-sm">
+        <thead><tr class="border-b border-dark-border"><th class="py-3 px-4 text-left text-gray-400 font-medium">M&eacute;trique</th><th class="py-3 px-4 text-center text-red-400 font-medium">Avant</th><th class="py-3 px-4 text-center text-emerald-400 font-medium">Avec huissiers.io</th></tr></thead>
+        <tbody class="text-gray-300">
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Appels entrants</td><td class="py-3 px-4 text-center text-red-400">50+/jour</td><td class="py-3 px-4 text-center text-emerald-400">25/jour (-50%)</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Taux de recouvrement</td><td class="py-3 px-4 text-center text-red-400">Variable</td><td class="py-3 px-4 text-center text-emerald-400">+15% en moyenne</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Temps cr&eacute;ation dossier</td><td class="py-3 px-4 text-center text-red-400">10 minutes</td><td class="py-3 px-4 text-center text-emerald-400">30 secondes</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">D&eacute;lai premier acte</td><td class="py-3 px-4 text-center text-red-400">3-5 jours</td><td class="py-3 px-4 text-center text-emerald-400">&lt;48 heures</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">Erreurs juridiques</td><td class="py-3 px-4 text-center text-red-400">Fr&eacute;quentes</td><td class="py-3 px-4 text-center text-emerald-400">0 (compliance checker)</td></tr>
+          <tr><td class="py-3 px-4">Reconstitution historique</td><td class="py-3 px-4 text-center text-red-400">4 onglets, 70% du temps</td><td class="py-3 px-4 text-center text-emerald-400">1 clic (timeline unifi&eacute;e)</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="section" id="testimonials" style="background:var(--bg-card)">
-  <div class="container text-center">
-    <h2 class="reveal">Ce qu'en disent les <span class="gradient-text">etudes pilotes</span></h2>
-    <div class="testimonials-grid">
-      <div class="testi-card reveal reveal-d1">
-        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <blockquote>Le portail debiteur a transforme notre quotidien. Les gens paient sans qu'on les appelle. On a reduit nos appels entrants de moitie en 3&nbsp;mois.</blockquote>
-        <p class="testi-author">Maitre V.</p>
-        <p class="testi-role">Huissier de justice, Bruxelles</p>
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Ce qu'en disent les &eacute;tudes pilotes</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex gap-1 text-brand-500 mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="text-gray-300 text-sm leading-relaxed italic">&laquo; Le portail d&eacute;biteur a transform&eacute; notre quotidien. Nos secr&eacute;taires passaient la moiti&eacute; de leur temps au t&eacute;l&eacute;phone pour des questions basiques. Aujourd'hui, les d&eacute;biteurs trouvent eux-m&ecirc;mes les r&eacute;ponses et paient en ligne. -50% d'appels en 3 mois. &raquo;</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-sm">MV</div>
+          <div><p class="text-white font-semibold text-sm">Ma&icirc;tre V.</p><p class="text-gray-500 text-xs">Huissier de justice, Bruxelles</p></div>
+        </div>
       </div>
-      <div class="testi-card reveal reveal-d2">
-        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <blockquote>Enfin un logiciel qui comprend le Book XIX. Plus aucune contestation liee a une mention manquante depuis qu'on l'utilise.</blockquote>
-        <p class="testi-author">Etude D.</p>
-        <p class="testi-role">3 huissiers associes, Liege</p>
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex gap-1 text-brand-500 mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="text-gray-300 text-sm leading-relaxed italic">&laquo; Enfin un logiciel qui comprend le Book XIX. Les 8 mentions obligatoires sont ins&eacute;r&eacute;es automatiquement, les quotit&eacute;s saisissables calcul&eacute;es en temps r&eacute;el. On ne se pose plus la question de la conformit&eacute;. Et le compliance checker avant chaque acte, c'est la tranquillit&eacute; absolue. &raquo;</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-sm">ED</div>
+          <div><p class="text-white font-semibold text-sm">&Eacute;tude D.</p><p class="text-gray-500 text-xs">3 huissiers associ&eacute;s, Li&egrave;ge</p></div>
+        </div>
       </div>
-      <div class="testi-card reveal reveal-d3">
-        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <blockquote>L'obligation itsme arrive en juin 2026. Pendant que nos confreres paniquent, nous sommes deja prets grace a huissiers.io.</blockquote>
-        <p class="testi-author">Clerc senior S.</p>
-        <p class="testi-role">Etude a Gand</p>
+      <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <div class="flex gap-1 text-brand-500 mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="text-gray-300 text-sm leading-relaxed italic">&laquo; L'obligation itsme arrive en juin 2026 et personne n'est pr&ecirc;t. Avec huissiers.io, on sera les premiers. Le mode offline est aussi un game-changer pour les significations sur le terrain. &raquo;</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-sm">CS</div>
+          <div><p class="text-white font-semibold text-sm">Clerc senior S.</p><p class="text-gray-500 text-xs">&Eacute;tude &agrave; Gand</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Feuille de route 2026-2027</h2>
+      <p class="mt-4 text-lg text-gray-400">Transparence totale sur notre progression.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 mb-4">En cours</span>
+        <h3 class="text-white font-bold text-lg mb-3">Q2 2026</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5 text-xs"></i>itsme&reg; QES</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5 text-xs"></i>e-Deposit</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5 text-xs"></i>Dashboard par r&ocirc;les</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5 text-xs"></i>Quotit&eacute;s art. 1409</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5 text-xs"></i>AI Act compliance</li>
+        </ul>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4">Planifi&eacute;</span>
+        <h3 class="text-white font-bold text-lg mb-3">Q3 2026</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>API REST cr&eacute;ancier</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Timeline unifi&eacute;e</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Langage adaptatif portail</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Reporting cr&eacute;ancier</li>
+        </ul>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4">Planifi&eacute;</span>
+        <h3 class="text-white font-bold text-lg mb-3">Q4 2026</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Scoring pr&eacute;dictif ML</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Brief-to-Act IA</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Mode offline PWA</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Export comptable</li>
+        </ul>
+      </div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4">Vision</span>
+        <h3 class="text-white font-bold text-lg mb-3">2027</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Multi-&eacute;tude f&eacute;d&eacute;r&eacute;</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Place de march&eacute; missions inter-&eacute;tudes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-center md:text-left reveal">
+        <div class="h-24 w-24 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-3xl mx-auto md:mx-0 mb-6">NS</div>
+        <h3 class="text-2xl font-bold text-white">Nicolas Simon</h3>
+        <p class="text-brand-500 font-medium mt-1">Fondateur &amp; D&eacute;veloppeur — Clixite SRL</p>
+      </div>
+      <div class="reveal">
+        <blockquote class="text-xl text-gray-300 font-medium italic border-l-4 border-brand-500 pl-6 mb-6">&laquo; J'ai cr&eacute;&eacute; huissiers.io parce que les huissiers belges m&eacute;ritent un outil &agrave; la hauteur de leur mission. &raquo;</blockquote>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">Ing&eacute;nieur logiciel sp&eacute;cialis&eacute; en LegalTech, j'ai pass&eacute; des mois &agrave; &eacute;tudier le quotidien des &eacute;tudes d'huissiers belges. Le constat est sans appel : des outils obsol&egrave;tes, une r&eacute;glementation en avalanche, et z&eacute;ro innovation depuis des ann&eacute;es.</p>
+        <p class="text-gray-400 text-sm leading-relaxed">huissiers.io est n&eacute; de cette frustration. Chaque fonctionnalit&eacute; a &eacute;t&eacute; con&ccedil;ue avec des huissiers, pour des huissiers. Pas un logiciel g&eacute;n&eacute;rique adapt&eacute; — une solution pens&eacute;e exclusivement pour le m&eacute;tier.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="section" id="how-it-works">
-  <div class="container text-center">
-    <h2 class="reveal">Operationnel en <span class="gradient-text">2 semaines</span></h2>
-    <div class="timeline reveal">
-      <div class="tl-step">
-        <div class="tl-dot">1</div>
-        <h3>Demo personnalisee (30 min)</h3>
-        <p>On vous montre la plateforme avec VOS types de dossiers, VOS workflows, VOS cas d'usage reels. Pas une demo generique.</p>
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Op&eacute;rationnel en 2 semaines</h2>
+      <p class="mt-4 text-lg text-gray-400">Un processus simple et accompagn&eacute;.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="relative text-center reveal">
+        <div class="h-12 w-12 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">1</div>
+        <h3 class="text-lg font-bold text-white mb-2">D&eacute;mo personnalis&eacute;e</h3>
+        <p class="text-gray-400 text-sm">30 minutes pour d&eacute;couvrir la plateforme avec vos propres cas d'usage.</p>
       </div>
-      <div class="tl-step">
-        <div class="tl-dot">2</div>
-        <h3>Migration assistee</h3>
-        <p>Import de vos dossiers existants (depuis Amadeus, Gerico ou autre), configuration de vos workflows, parametrage de vos templates. On s'occupe de tout.</p>
+      <div class="relative text-center reveal">
+        <div class="h-12 w-12 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">2</div>
+        <h3 class="text-lg font-bold text-white mb-2">Migration assist&eacute;e</h3>
+        <p class="text-gray-400 text-sm">Import de vos dossiers existants, configuration de vos workflows, param&eacute;trage complet.</p>
       </div>
-      <div class="tl-step">
-        <div class="tl-dot">3</div>
-        <h3>Go live + formation</h3>
-        <p>Formation complete de toute votre equipe. Support dedie par Nicolas Simon et l'equipe Clixite pendant la transition.</p>
+      <div class="relative text-center reveal">
+        <div class="h-12 w-12 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">3</div>
+        <h3 class="text-lg font-bold text-white mb-2">Go live + formation</h3>
+        <p class="text-gray-400 text-sm">Formation de votre &eacute;quipe et accompagnement pendant les premi&egrave;res semaines.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- CLOSING STATEMENT -->
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+    <h2 class="text-3xl font-bold text-white sm:text-4xl mb-6">huissiers.io n'est pas une &eacute;volution de ce qui existe.<br>C'est une <span class="text-gradient">rupture</span>.</h2>
+    <p class="text-gray-400 text-lg leading-relaxed">Le premier portail d&eacute;biteur self-service en Belgique. La premi&egrave;re IA g&eacute;n&eacute;rative juridique pour huissiers. Le premier compliance checker automatis&eacute;. Le premier scoring pr&eacute;dictif de recouvrement. La premi&egrave;re int&eacute;gration native itsme&reg; QES et e-Deposit. Le premier logiciel d'huissier conforme AI Act. Le premier mode offline pour les significations terrain. La premi&egrave;re place de march&eacute; inter-&eacute;tudes.</p>
+  </div>
+</section>
+
 <!-- FOUNDER OFFER -->
-<section class="section" id="offer">
-  <div class="container">
-    <div class="founder-box text-center reveal">
-      <span class="founder-badge">Offre limitee — 10 etudes</span>
-      <h2>Devenez etude fondatrice.<br><span class="gradient-text">Tarif garanti a vie.</span></h2>
-      <ul class="founder-list" style="text-align:left;max-width:520px;margin:0 auto 2.5rem">
-        <li>Tarif fondateur garanti a vie — jamais d'augmentation</li>
-        <li>0&euro; d'installation, 0 serveur a maintenir</li>
-        <li>Mises a jour continues + conformite legale automatique</li>
-        <li>Support dedie en francais et neerlandais</li>
-        <li>Formation complete de toute l'equipe incluse</li>
-        <li>Migration des donnees assistee depuis votre logiciel actuel</li>
-        <li>Acces prioritaire aux nouvelles fonctionnalites</li>
-        <li>Ligne directe avec Nicolas Simon, fondateur</li>
+<section class="py-24 border-t border-dark-border">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-dark-card rounded-xl p-8 md:p-12 border border-brand-500/30 shadow-[0_0_40px_rgba(249,115,22,0.1)] reveal">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 mb-4">Offre limit&eacute;e — 10 &eacute;tudes</span>
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Devenez &eacute;tude fondatrice</h2>
+      <ul class="space-y-3 text-sm text-gray-400 mb-8">
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Acc&egrave;s prioritaire &agrave; toutes les fonctionnalit&eacute;s</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Tarif fondateur garanti &agrave; vie</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Ligne directe avec l'&eacute;quipe de d&eacute;veloppement</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Co-construction des fonctionnalit&eacute;s prioritaires</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Migration assist&eacute;e gratuite</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Formation compl&egrave;te de votre &eacute;quipe</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Support prioritaire 24/7</li>
+        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Engagement sans dur&eacute;e minimale</li>
       </ul>
-      <a href="#contact" class="btn btn--gold btn--lg">Devenir etude fondatrice &rarr;</a>
-      <p class="founder-pulse" style="margin-top:1rem">Seulement 7 places restantes</p>
+      <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium w-full justify-center">Devenir &eacute;tude fondatrice →</a>
+      <p class="mt-4 text-center text-brand-500 text-sm font-semibold pulse-glow">Seulement 7 places restantes</p>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="section" id="faq" style="background:var(--bg-card)">
-  <div class="container text-center">
-    <h2 class="reveal">Questions frequentes</h2>
-    <div class="faq-list reveal">
-      <div class="faq-item">
-        <button class="faq-q">huissiers.io est-il conforme au RGPD ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Absolument. Logging complet art. 22 RGPD pour tous les traitements automatises, droit d'acces, rectification, effacement. Audit trail de chaque action. Aucune donnee sensible (sante, ethnie, religion) n'est jamais utilisee dans le scoring.</div></div>
+<section id="faq" class="py-24 border-t border-dark-border">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Questions fr&eacute;quentes</h2>
+    </div>
+    <div class="space-y-3">
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">huissiers.io est-il d&eacute;j&agrave; disponible ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Nous sommes en phase de d&eacute;veloppement avanc&eacute; avec des &eacute;tudes pilotes. Les premi&egrave;res fonctionnalit&eacute;s core (gestion de dossiers, workflow, conformit&eacute; Book XIX) sont op&eacute;rationnelles. Le portail d&eacute;biteur et l'IA sont en b&ecirc;ta. Lancement complet pr&eacute;vu Q2 2026, avant l'obligation l&eacute;gale de juin 2026.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Mes donnees sont-elles isolees des autres etudes ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Oui, a 100%. Architecture multi-tenant isolee : chaque etude est un tenant strictement separe avec ses propres donnees, utilisateurs et configurations. Aucun risque de fuite inter-etudes.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">Mes donn&eacute;es sont-elles en s&eacute;curit&eacute; ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Absolument. H&eacute;bergement cloud souverain belge/europ&eacute;en, chiffrement AES-256 au repos et TLS 1.3 en transit, multi-tenant avec isolation compl&egrave;te par &eacute;tude, RGPD by design, audit trail complet, sauvegardes automatiques. Vos donn&eacute;es ne quittent jamais l'Europe.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Comment fonctionne la migration depuis Amadeus ou Gerico ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Notre equipe prend en charge l'import complet de vos dossiers existants. Nous supportons les formats de donnees des principaux logiciels belges. La migration typique prend 2-5 jours selon le volume.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">Puis-je migrer depuis Amadeus ou Gerico ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Oui. Nous proposons une migration assist&eacute;e compl&egrave;te. Import de vos dossiers existants (CSV/Excel/API), configuration de vos workflows actuels, et formation de votre &eacute;quipe. Le tout en 2 semaines maximum.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Etes-vous reellement prets pour l'obligation itsme&reg; de juin 2026 ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Oui. L'integration itsme&reg; QES est basee sur le protocole CSC v1.0.4.0 (Cloud Signature Consortium) et supporte les 3 niveaux de signature (simple, avancee, qualifiee eIDAS). Documentation complete, tests sandbox valides.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">L'IA est-elle conforme &agrave; l'AI Act ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Oui. Nous avons class&eacute; chaque composant IA selon la grille de risque du r&egrave;glement EU 2024/1689. Brief-to-Act : risque limit&eacute; (art. 6) avec supervision humaine obligatoire. Chatbot d&eacute;biteur : obligation de transparence (art. 50). Scoring : explicabilit&eacute; compl&egrave;te. Chaque d&eacute;cision IA est tra&ccedil;able et auditable.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Quel est le delai de mise en service ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">2 semaines en moyenne. Demo personnalisee, migration, formation, go live. Support dedie pendant toute la transition.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">Combien &ccedil;a co&ucirc;te ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Le tarif d&eacute;pend de la taille de votre &eacute;tude (nombre d'huissiers, de clercs, de dossiers). Nous proposons un mod&egrave;le SaaS mensuel tout inclus, sans engagement de dur&eacute;e. Les &eacute;tudes fondatrices b&eacute;n&eacute;ficient d'un tarif pr&eacute;f&eacute;rentiel garanti &agrave; vie. Contactez-nous pour un devis personnalis&eacute;.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Le portail debiteur fonctionne-t-il en neerlandais ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Oui, le portail est trilingue natif (FR/NL/EN) avec selecteur de langue. Tous les textes sont declines dans les 3 langues, y compris les 3 niveaux de langage adaptatif. Conforme au droit linguistique belge.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">Fonctionne-t-il en n&eacute;erlandais ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Oui. huissiers.io est trilingue natif (FR/NL/EN). L'interface, les templates, le portail d&eacute;biteur, le chatbot — tout fonctionne dans les trois langues. Le droit linguistique est respect&eacute; automatiquement dans chaque acte.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Proposez-vous une API pour nos clients institutionnels ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Oui. API REST complete (OpenAPI v3.1) avec authentification API key/OAuth2, import batch CSV/XLSX, webhooks evenementiels, rate limiting, sandbox test, documentation Swagger auto-generee. Concue pour les banques et organismes de credit.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">Et si je n'ai pas de connexion internet ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Le mode offline PWA (pr&eacute;vu Q4 2026) vous permet de continuer &agrave; travailler sans connexion. Id&eacute;al pour les significations sur le terrain. Les donn&eacute;es se synchronisent automatiquement d&egrave;s que vous retrouvez une connexion.</p>
+        </div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Que se passe-t-il sans connexion internet sur le terrain ?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-a"><div class="faq-a-inner">Le mode offline PWA (roadmap Q4 2026) permet de consulter les dossiers assignes, saisir des PV, prendre des photos de constat et utiliser la geolocalisation — meme sans connexion. Synchronisation automatique au retour en ligne.</div></div>
+      <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
+        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
+          <span class="text-white font-semibold text-sm pr-4">Qui est derri&egrave;re huissiers.io ?</span>
+          <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6 pb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">huissiers.io est d&eacute;velopp&eacute; par Clixite SRL, une soci&eacute;t&eacute; belge fond&eacute;e par Nicolas Simon, ing&eacute;nieur logiciel sp&eacute;cialis&eacute; en LegalTech. Le d&eacute;veloppement est enti&egrave;rement r&eacute;alis&eacute; en Belgique.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="container">
-    <div class="text-center" style="margin-bottom:2rem">
-      <h2 class="reveal">Planifiez votre <span class="gradient-text">demo personnalisee</span></h2>
-      <p class="section-sub reveal">30 minutes pour voir ce que huissiers.io peut faire pour votre etude.</p>
+<section id="contact" class="py-24 border-t border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-3xl font-bold text-white sm:text-4xl">Planifiez votre d&eacute;mo personnalis&eacute;e</h2>
+      <p class="mt-4 text-lg text-gray-400">30 minutes pour d&eacute;couvrir comment huissiers.io transformera votre &eacute;tude.</p>
     </div>
-    <div class="contact-grid reveal">
-      <form id="contactForm" action="https://formspree.io/f/xpwzgkjr" method="POST">
-        <div class="form-row">
-          <div class="form-group"><label for="study">Nom de l'etude *</label><input type="text" id="study" name="study" required placeholder="Etude Dupont & Associes"></div>
-          <div class="form-group"><label for="name">Votre nom *</label><input type="text" id="name" name="name" required placeholder="Jean Dupont"></div>
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <form id="contact-form" action="https://formspree.io/f/xpwzgkjr" method="POST" class="space-y-6 reveal">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Nom de l'&eacute;tude</label>
+              <input type="text" name="study_name" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="&Eacute;tude Dupont &amp; Associ&eacute;s">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Votre nom</label>
+              <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="Ma&icirc;tre Dupont">
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="contact@etude.be">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">T&eacute;l&eacute;phone</label>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="+32 ...">
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Nombre d'huissiers</label>
+              <select name="bailiffs_count" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+                <option value="">S&eacute;lectionnez</option>
+                <option value="1">1 huissier</option>
+                <option value="2-3">2-3 huissiers</option>
+                <option value="4-5">4-5 huissiers</option>
+                <option value="6+">6+ huissiers</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Logiciel actuel</label>
+              <select name="current_software" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+                <option value="">S&eacute;lectionnez</option>
+                <option value="Amadeus">Amadeus (MCPS)</option>
+                <option value="Gerico">Gerico (I-Pulses)</option>
+                <option value="Autre">Autre</option>
+                <option value="Aucun">Aucun</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+            <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none" placeholder="D&eacute;crivez vos besoins ou vos questions..."></textarea>
+          </div>
+          <div class="flex items-start gap-3">
+            <input type="checkbox" id="gdpr" name="gdpr_consent" required class="mt-1 rounded border-dark-border bg-dark-card text-brand-500 focus:ring-brand-500">
+            <label for="gdpr" class="text-gray-400 text-sm">J'accepte que mes donn&eacute;es soient trait&eacute;es par Clixite SRL pour r&eacute;pondre &agrave; ma demande, conform&eacute;ment au RGPD. Aucune donn&eacute;e ne sera partag&eacute;e avec des tiers.</label>
+          </div>
+          <button type="submit" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium w-full justify-center">Envoyer ma demande de d&eacute;mo →</button>
+          <p id="form-status" class="text-center text-sm hidden"></p>
+        </form>
+      </div>
+      <div class="space-y-8 reveal">
+        <div>
+          <h3 class="text-white font-semibold mb-4">Contact direct</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-envelope text-brand-500"></i>nicolas@clixite.com</div>
+            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-location-dot text-brand-500"></i>Belgique</div>
+            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-clock text-brand-500"></i>R&eacute;ponse sous 24h</div>
+          </div>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label for="email">Email professionnel *</label><input type="email" id="email" name="email" required placeholder="jean@etude-dupont.be"></div>
-          <div class="form-group"><label for="phone">Telephone</label><input type="tel" id="phone" name="phone" placeholder="+32 2 123 45 67"></div>
+        <div class="bg-dark-card rounded-xl p-6 border border-dark-border">
+          <p class="text-gray-400 text-sm leading-relaxed">Cette d&eacute;mo est personnalis&eacute;e et sans engagement. Nicolas Simon, fondateur de huissiers.io, vous pr&eacute;sentera la plateforme avec vos propres cas d'usage. 30 minutes qui pourraient transformer votre &eacute;tude.</p>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label for="count">Nombre d'huissiers</label><select id="count" name="bailiff_count"><option value="">Selectionnez...</option><option value="1">1</option><option value="2-3">2-3</option><option value="4-5">4-5</option><option value="6+">6+</option></select></div>
-          <div class="form-group"><label for="software">Logiciel actuel</label><select id="software" name="current_software"><option value="">Selectionnez...</option><option value="Amadeus (MCPS)">Amadeus (MCPS)</option><option value="Gerico (I-Pulses)">Gerico (I-Pulses)</option><option value="Autre">Autre</option><option value="Aucun">Aucun logiciel dedie</option></select></div>
-        </div>
-        <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" placeholder="Decrivez vos besoins ou questions..."></textarea></div>
-        <div class="form-check">
-          <input type="checkbox" id="gdpr" name="gdpr_consent" required>
-          <label for="gdpr">J'accepte que mes donnees soient traitees par Clixite SRL pour me recontacter. <a href="#" style="text-decoration:underline">Politique de confidentialite.</a></label>
-        </div>
-        <button type="submit" class="btn btn--primary btn--lg btn--full">Planifier ma demo &rarr;</button>
-        <p id="formStatus" style="margin-top:1rem;text-align:center;font-weight:600;display:none"></p>
-      </form>
-      <div class="contact-aside">
-        <h3>Contact direct</h3>
-        <div class="contact-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <a href="mailto:nicolas@clixite.com" style="color:var(--text)">nicolas@clixite.com</a>
-        </div>
-        <div class="contact-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Belgique</span>
-        </div>
-        <div class="contact-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          <span>Reponse garantie sous 24h</span>
-        </div>
-        <p class="contact-note">Nicolas Simon, fondateur de huissiers.io et Clixite SRL, vous repondra personnellement.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="#" class="nav-logo" style="font-size:1.3rem">huissiers.io</a>
-        <p>Premiere plateforme belge combinant IA, portail debiteur et conformite automatisee pour les etudes d'huissiers.</p>
+<footer class="border-t border-dark-border py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="h-8 w-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-sm">H</div>
+          <span class="text-lg font-bold text-white">huissiers.io</span>
+        </div>
+        <p class="text-gray-500 text-sm">Le logiciel IA pour huissiers de justice belges. Par Clixite SRL.</p>
       </div>
       <div>
-        <h4>Produit</h4>
-        <a href="#features">Fonctionnalites</a>
-        <a href="#comparison">Comparaison</a>
-        <a href="#offer">Tarifs</a>
-        <a href="#faq">FAQ</a>
+        <h4 class="text-white font-semibold text-sm mb-4">Produit</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Fonctionnalit&eacute;s</a></li>
+          <li><a href="#avantages" class="text-gray-400 hover:text-white transition-colors">Avantages</a></li>
+          <li><a href="#compare" class="text-gray-400 hover:text-white transition-colors">Comparatif</a></li>
+          <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+        </ul>
       </div>
       <div>
-        <h4>Legal</h4>
-        <a href="#">Mentions legales</a>
-        <a href="#">Politique de confidentialite</a>
-        <a href="#">CGV</a>
+        <h4 class="text-white font-semibold text-sm mb-4">L&eacute;gal</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Mentions l&eacute;gales</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Politique de confidentialit&eacute;</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">RGPD</a></li>
+        </ul>
       </div>
       <div>
-        <h4>Contact</h4>
-        <a href="mailto:nicolas@clixite.com">nicolas@clixite.com</a>
-        <a href="https://www.linkedin.com/in/nicolassimon" target="_blank" rel="noopener">LinkedIn</a>
+        <h4 class="text-white font-semibold text-sm mb-4">Contact</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="mailto:nicolas@clixite.com" class="text-gray-400 hover:text-white transition-colors">nicolas@clixite.com</a></li>
+          <li><a href="https://www.linkedin.com/in/nicolassimon" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Clixite SRL — Nicolas Simon. Tous droits reserves.</p>
-      <span class="footer-be">Concu et developpe en Belgique &#127463;&#127466;</span>
+    <div class="mt-12 pt-8 border-t border-dark-border text-center text-gray-500 text-sm">
+      &copy; 2026 Clixite SRL — Nicolas Simon. Con&ccedil;u et d&eacute;velopp&eacute; en Belgique &#127463;&#127466;
     </div>
   </div>
 </footer>
 
-<!-- JS -->
+<!-- JAVASCRIPT -->
 <script>
-(function(){
-'use strict';
-
-/* Urgency bar */
-var bar=document.getElementById('urgencyBar'),cls=document.getElementById('urgencyClose');
-if(localStorage.getItem('ub_closed')==='1'){bar.classList.add('hidden');document.documentElement.style.setProperty('--bar-h','0px')}
-cls.addEventListener('click',function(){bar.classList.add('hidden');document.documentElement.style.setProperty('--bar-h','0px');localStorage.setItem('ub_closed','1')});
-
-/* Navbar scroll */
-var nav=document.getElementById('navbar');
-window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
-
-/* Mobile menu */
-var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
-hb.addEventListener('click',function(){
-  var open=mm.classList.toggle('open'),sp=hb.querySelectorAll('span');
-  sp[0].style.transform=open?'rotate(45deg) translate(5px,5px)':'';
-  sp[1].style.opacity=open?'0':'';
-  sp[2].style.transform=open?'rotate(-45deg) translate(5px,-5px)':'';
-});
-document.querySelectorAll('.mob-link').forEach(function(l){l.addEventListener('click',function(){
-  mm.classList.remove('open');var sp=hb.querySelectorAll('span');
-  sp[0].style.transform='';sp[1].style.opacity='';sp[2].style.transform='';
-})});
-
-/* Dashboard bars */
-var ch=document.getElementById('mockChart');
-[30,50,35,65,55,80,45,70,85,60,75,92].forEach(function(h,i){
-  var b=document.createElement('div');b.className='mock-bar';
-  b.style.background=['var(--teal)','var(--gold)','var(--teal)','var(--green)',
-    'var(--teal)','var(--gold)','var(--teal)','var(--green)',
-    'var(--gold)','var(--teal)','var(--green)','var(--gold)'][i];
-  b.style.height='0';b.style.opacity='.65';ch.appendChild(b);
-  setTimeout(function(){b.style.height=h+'%'},400+i*70);
-});
-
-/* Scroll reveal */
-var obs=new IntersectionObserver(function(e){e.forEach(function(en){
-  if(en.isIntersecting){en.target.classList.add('vis');obs.unobserve(en.target)}
-})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
-
-/* Animated counters */
-function countUp(el){
-  var t=parseFloat(el.dataset.target),s=el.dataset.suffix||'',p=el.dataset.prefix||'';
-  if(el.dataset.noAnim){el.textContent=p+t+s;return}
-  if(t===0){el.textContent=p+'0'+s;return}
-  var dur=1600,start=performance.now(),dec=t%1!==0;
-  (function tick(now){
-    var prog=Math.min((now-start)/dur,1),ease=1-Math.pow(1-prog,3),cur=ease*t;
-    el.textContent=p+(dec?cur.toFixed(1):Math.floor(cur))+s;
-    if(prog<1)requestAnimationFrame(tick);
-  })(performance.now());
+// Urgency bar
+function closeBar() {
+  const bar = document.getElementById('urgency-bar');
+  bar.style.transform = 'translateY(-100%)';
+  document.documentElement.style.setProperty('--bar-h', '0px');
+  document.getElementById('navbar').style.top = '0px';
+  localStorage.setItem('bar-closed', '1');
 }
-var cobs=new IntersectionObserver(function(e){e.forEach(function(en){
-  if(en.isIntersecting){countUp(en.target);cobs.unobserve(en.target)}
-})},{threshold:.5});
-document.querySelectorAll('[data-target]').forEach(function(el){cobs.observe(el)});
+if (localStorage.getItem('bar-closed') === '1') {
+  document.getElementById('urgency-bar').style.transform = 'translateY(-100%)';
+  document.documentElement.style.setProperty('--bar-h', '0px');
+  document.getElementById('navbar').style.top = '0px';
+}
 
-/* Countdown */
-var dl=new Date('2026-06-01T00:00:00+02:00').getTime();
-var dd=document.getElementById('cd-days'),dh=document.getElementById('cd-hours'),
-    dm=document.getElementById('cd-mins'),ds=document.getElementById('cd-secs');
-function tick(){
-  var d=dl-Date.now();if(d<=0){dd.textContent=dh.textContent=dm.textContent=ds.textContent='0';return}
-  dd.textContent=Math.floor(d/864e5);
-  dh.textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');
-  dm.textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');
-  ds.textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');
-}tick();setInterval(tick,1000);
-
-/* FAQ */
-document.querySelectorAll('.faq-q').forEach(function(b){b.addEventListener('click',function(){
-  var it=b.parentElement,op=it.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open')});
-  if(!op)it.classList.add('open');
-})});
-
-/* Form */
-var form=document.getElementById('contactForm'),st=document.getElementById('formStatus');
-form.addEventListener('submit',function(e){
-  e.preventDefault();var btn=form.querySelector('button[type="submit"]');
-  btn.disabled=true;btn.textContent='Envoi en cours...';
-  fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
-    .then(function(r){if(!r.ok)throw 0;
-      st.style.display='block';st.style.color='var(--green)';
-      st.textContent='Merci ! Nous vous recontactons sous 24h.';form.reset()})
-    .catch(function(){st.style.display='block';st.style.color='var(--red)';
-      st.textContent='Erreur. Contactez nicolas@clixite.com directement.'})
-    .finally(function(){btn.disabled=false;btn.textContent='Planifier ma demo \u2192'});
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('border-dark-border', 'shadow-lg');
+    navbar.style.background = 'rgba(11,17,32,0.95)';
+  } else {
+    navbar.classList.remove('shadow-lg');
+    navbar.style.background = '';
+  }
 });
 
-})();
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+});
+function closeMobile() {
+  mobileMenu.classList.add('hidden');
+}
+
+// Countdown
+function updateCountdown() {
+  const target = new Date('2026-06-01T00:00:00+02:00').getTime();
+  const now = Date.now();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '0';
+    document.getElementById('cd-hours').textContent = '0';
+    document.getElementById('cd-mins').textContent = '0';
+    document.getElementById('cd-secs').textContent = '0';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = d;
+  document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Animated counters
+const counterEls = document.querySelectorAll('.counter-value');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const duration = 2000;
+      const start = performance.now();
+      function animate(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObserver.observe(el));
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// Form submission
+const form = document.getElementById('contact-form');
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours...';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        status.textContent = 'Merci ! Votre demande a bien été envoyée. Nous vous répondrons sous 24h.';
+        status.className = 'text-center text-sm text-emerald-400';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      status.textContent = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement.';
+      status.className = 'text-center text-sm text-red-400';
+    }
+    status.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Envoyer ma demande de démo →';
+  });
+}
 </script>
+
 </body>
 </html>
