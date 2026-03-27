@@ -53,16 +53,17 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 .counter-value { font-variant-numeric: tabular-nums; }
 </style>
+<script src="i18n.js" defer></script>
 </head>
 <body class="bg-[#0B1120] text-gray-100 font-sans antialiased">
 
 <!-- URGENCY BAR -->
 <div id="urgency-bar" class="fixed top-0 left-0 right-0 z-[60] h-[var(--bar-h)] bg-gradient-to-r from-red-600 to-red-700 text-white flex items-center justify-center gap-3 text-sm font-medium px-12 transition-transform duration-300">
   <i class="fa-solid fa-triangle-exclamation hidden sm:inline"></i>
-  <span class="hidden sm:inline">Signification &eacute;lectronique obligatoire — Juin 2026.</span>
-  <span class="sm:hidden text-xs">Juin 2026</span>
-  <span class="hidden sm:inline">Votre &eacute;tude est-elle pr&ecirc;te ?</span>
-  <a href="#countdown" class="font-bold underline underline-offset-2 hover:text-brand-200 whitespace-nowrap">V&eacute;rifier →</a>
+  <span class="hidden sm:inline" data-i18n="urgencyText">Signification &eacute;lectronique obligatoire — Juin 2026.</span>
+  <span class="sm:hidden text-xs" data-i18n="urgencyShort">Juin 2026</span>
+  <span class="hidden sm:inline" data-i18n="urgencyQuestion">Votre &eacute;tude est-elle pr&ecirc;te ?</span>
+  <a href="#countdown" class="font-bold underline underline-offset-2 hover:text-brand-200 whitespace-nowrap" data-i18n="urgencyLink">V&eacute;rifier →</a>
   <button onclick="closeBar()" class="absolute right-4 text-white/70 hover:text-white text-lg" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
 </div>
 
@@ -70,17 +71,24 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <header id="navbar" class="sticky top-[var(--bar-h)] z-50 bg-[#0B1120]/80 backdrop-blur-md border-b border-transparent transition-all duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
     <a href="#" class="flex items-center gap-2">
-      <div class="h-8 w-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-sm">H</div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-8 w-8" aria-label="huissiers.io logo"><rect width="32" height="32" rx="6" fill="#f97316"/><g fill="white"><path d="M16 4 L16 7 M16 25 L16 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="9" r="2.5"/><path d="M8 15.5 L16 12 L24 15.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="16" width="4" height="7" rx="1" opacity="0.85"/><rect x="14" y="16" width="4" height="7" rx="1" opacity="0.85"/><rect x="21" y="16" width="4" height="7" rx="1" opacity="0.85"/><rect x="5" y="23.5" width="22" height="2.5" rx="1"/></g></svg>
       <span class="text-lg font-bold text-white">huissiers.io</span>
     </a>
     <nav class="hidden md:flex items-center gap-8">
-      <a href="#features" class="text-sm text-gray-400 hover:text-white transition-colors">Fonctionnalit&eacute;s</a>
-      <a href="#avantages" class="text-sm text-gray-400 hover:text-white transition-colors">Avantages</a>
-      <a href="#compare" class="text-sm text-gray-400 hover:text-white transition-colors">Comparer</a>
-      <a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
+      <a href="#features" class="text-sm text-gray-400 hover:text-white transition-colors" data-i18n="navFeatures">Fonctionnalit&eacute;s</a>
+      <a href="#avantages" class="text-sm text-gray-400 hover:text-white transition-colors" data-i18n="navAdvantages">Avantages</a>
+      <a href="#compare" class="text-sm text-gray-400 hover:text-white transition-colors" data-i18n="navCompare">Comparer</a>
+      <a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors" data-i18n="navFaq">FAQ</a>
     </nav>
-    <div class="hidden md:block">
-      <a href="#contact" class="inline-flex items-center px-5 py-2.5 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium text-sm">Demander une d&eacute;mo</a>
+    <div class="hidden md:flex items-center gap-4">
+      <div class="flex items-center gap-1 text-sm">
+        <button onclick="setLang('fr')" class="lang-btn px-2 py-1 rounded text-gray-400 hover:text-white transition-colors" data-lang="fr">FR</button>
+        <span class="text-gray-600">|</span>
+        <button onclick="setLang('nl')" class="lang-btn px-2 py-1 rounded text-gray-400 hover:text-white transition-colors" data-lang="nl">NL</button>
+        <span class="text-gray-600">|</span>
+        <button onclick="setLang('en')" class="lang-btn px-2 py-1 rounded text-gray-400 hover:text-white transition-colors" data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="inline-flex items-center px-5 py-2.5 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium text-sm" data-i18n="navCta">Demander une d&eacute;mo</a>
     </div>
     <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
       <span class="w-5 h-0.5 bg-white rounded transition-all"></span>
@@ -90,11 +98,18 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
   </div>
   <div id="mobile-menu" class="hidden md:hidden bg-[#0B1120]/95 backdrop-blur-xl border-t border-dark-border">
     <div class="px-4 py-6 flex flex-col gap-4">
-      <a href="#features" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">Fonctionnalit&eacute;s</a>
-      <a href="#avantages" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">Avantages</a>
-      <a href="#compare" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">Comparer</a>
-      <a href="#faq" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()">FAQ</a>
-      <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium text-sm mt-2" onclick="closeMobile()">Demander une d&eacute;mo</a>
+      <a href="#features" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()" data-i18n="navFeatures">Fonctionnalit&eacute;s</a>
+      <a href="#avantages" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()" data-i18n="navAdvantages">Avantages</a>
+      <a href="#compare" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()" data-i18n="navCompare">Comparer</a>
+      <a href="#faq" class="text-gray-300 hover:text-white font-medium" onclick="closeMobile()" data-i18n="navFaq">FAQ</a>
+      <div class="flex items-center gap-1 text-sm pt-2">
+        <button onclick="setLang('fr');closeMobile()" class="lang-btn px-2 py-1 rounded text-gray-400 hover:text-white transition-colors" data-lang="fr">FR</button>
+        <span class="text-gray-600">|</span>
+        <button onclick="setLang('nl');closeMobile()" class="lang-btn px-2 py-1 rounded text-gray-400 hover:text-white transition-colors" data-lang="nl">NL</button>
+        <span class="text-gray-600">|</span>
+        <button onclick="setLang('en');closeMobile()" class="lang-btn px-2 py-1 rounded text-gray-400 hover:text-white transition-colors" data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium text-sm mt-2" onclick="closeMobile()" data-i18n="navCta">Demander une d&eacute;mo</a>
     </div>
   </div>
 </header>
@@ -105,12 +120,12 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <div class="reveal">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">Votre &eacute;tude m&eacute;rite <span class="text-gradient">mieux</span> qu&rsquo;un logiciel des ann&eacute;es&nbsp;90.</h1>
-        <p class="mt-4 text-brand-400 font-medium text-lg">Le seul logiciel belge d&rsquo;huissier combinant IA, portail self-service d&eacute;biteur, workflow configurable, et conformit&eacute; Book XIX automatis&eacute;e.</p>
-        <p class="mt-4 text-lg text-gray-400 max-w-xl">La premi&egrave;re et unique plateforme SaaS belge con&ccedil;ue exclusivement pour les &eacute;tudes d&rsquo;huissiers de justice. Intelligence artificielle, automatisation juridique, et portail d&eacute;biteur self-service dans une solution cloud souveraine belge. Pr&ecirc;te pour juin 2026.</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight" data-i18n-html="heroTitle">Votre &eacute;tude m&eacute;rite <span class="text-gradient">mieux</span> qu&rsquo;un logiciel des ann&eacute;es&nbsp;90.</h1>
+        <p class="mt-4 text-brand-400 font-medium text-lg" data-i18n="heroSubtitle">Le seul logiciel belge d&rsquo;huissier combinant IA, portail self-service d&eacute;biteur, workflow configurable, et conformit&eacute; Book XIX automatis&eacute;e.</p>
+        <p class="mt-4 text-lg text-gray-400 max-w-xl" data-i18n="heroDescription">La premi&egrave;re et unique plateforme SaaS belge con&ccedil;ue exclusivement pour les &eacute;tudes d&rsquo;huissiers de justice. Intelligence artificielle, automatisation juridique, et portail d&eacute;biteur self-service dans une solution cloud souveraine belge. Pr&ecirc;te pour juin 2026.</p>
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium">Planifier ma d&eacute;mo gratuite →</a>
-          <a href="#features" class="inline-flex items-center px-6 py-3 text-gray-300 hover:text-white transition-colors">D&eacute;couvrir les fonctionnalit&eacute;s ↓</a>
+          <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium" data-i18n="heroCta1">Planifier ma d&eacute;mo gratuite →</a>
+          <a href="#features" class="inline-flex items-center px-6 py-3 text-gray-300 hover:text-white transition-colors" data-i18n="heroCta2">D&eacute;couvrir les fonctionnalit&eacute;s ↓</a>
         </div>
       </div>
       <div class="relative reveal">
@@ -124,9 +139,9 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
           </div>
           <div class="p-5 space-y-4">
             <div class="grid grid-cols-3 gap-3">
-              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-brand-400 block">&euro;247K</span><span class="text-[11px] text-gray-500 uppercase tracking-wider">Recouvr&eacute;</span></div>
-              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-emerald-400 block">94%</span><span class="text-[11px] text-gray-500 uppercase tracking-wider">Conformit&eacute;</span></div>
-              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-cyan-400 block">142</span><span class="text-[11px] text-gray-500 uppercase tracking-wider">Dossiers actifs</span></div>
+              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-brand-400 block">&euro;247K</span><span class="text-[11px] text-gray-500 uppercase tracking-wider" data-i18n="dashRecovered">Recouvr&eacute;</span></div>
+              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-emerald-400 block">94%</span><span class="text-[11px] text-gray-500 uppercase tracking-wider" data-i18n="dashCompliance">Conformit&eacute;</span></div>
+              <div class="bg-white/[0.03] border border-dark-border rounded-lg p-3"><span class="text-2xl font-bold text-cyan-400 block">142</span><span class="text-[11px] text-gray-500 uppercase tracking-wider" data-i18n="dashActiveCases">Dossiers actifs</span></div>
             </div>
             <div class="flex items-end gap-1.5 h-16 px-1">
               <div class="flex-1 bg-brand-500/60 rounded-t" style="height:45%"></div>
@@ -154,27 +169,27 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <!-- STATS ROW -->
 <section class="py-16 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl font-bold text-white sm:text-4xl text-center reveal">Pendant ce temps, dans votre &eacute;tude...</h2>
+    <h2 class="text-3xl font-bold text-white sm:text-4xl text-center reveal" data-i18n="statsTitle">Pendant ce temps, dans votre &eacute;tude...</h2>
     <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="text-center reveal">
         <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-clock"></i></div>
         <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="70">0</span><span class="text-4xl sm:text-5xl font-bold text-brand-500">%</span>
-        <p class="mt-2 text-gray-400 text-sm">du temps de vos clercs perdu en navigation entre onglets</p>
+        <p class="mt-2 text-gray-400 text-sm" data-i18n="statsClerksTime">du temps de vos clercs perdu en navigation entre onglets</p>
       </div>
       <div class="text-center reveal">
         <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-file-circle-plus"></i></div>
         <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="10">0</span><span class="text-4xl sm:text-5xl font-bold text-brand-500"> min</span>
-        <p class="mt-2 text-gray-400 text-sm">pour cr&eacute;er un seul dossier manuellement</p>
+        <p class="mt-2 text-gray-400 text-sm" data-i18n="statsCaseCreation">pour cr&eacute;er un seul dossier manuellement</p>
       </div>
       <div class="text-center reveal">
         <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-phone-volume"></i></div>
         <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="50">0</span><span class="text-4xl sm:text-5xl font-bold text-brand-500">x/j</span>
-        <p class="mt-2 text-gray-400 text-sm">votre t&eacute;l&eacute;phone sonne pour des questions &eacute;vitables</p>
+        <p class="mt-2 text-gray-400 text-sm" data-i18n="statsPhoneCalls">votre t&eacute;l&eacute;phone sonne pour des questions &eacute;vitables</p>
       </div>
       <div class="text-center reveal">
         <div class="h-14 w-14 rounded-full bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl mx-auto mb-4"><i class="fa-solid fa-calendar-xmark"></i></div>
         <span class="text-4xl sm:text-5xl font-bold text-brand-500 counter-value" data-target="1996">0</span>
-        <p class="mt-2 text-gray-400 text-sm">ann&eacute;e de cr&eacute;ation de votre logiciel actuel</p>
+        <p class="mt-2 text-gray-400 text-sm" data-i18n="statsSoftwareYear">ann&eacute;e de cr&eacute;ation de votre logiciel actuel</p>
       </div>
     </div>
   </div>
@@ -184,29 +199,29 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Les vrais probl&egrave;mes de votre &eacute;tude</h2>
-      <p class="mt-4 text-lg text-gray-400">Ce que personne n'ose dire tout haut.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="painTitle">Les vrais probl&egrave;mes de votre &eacute;tude</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="painSubtitle">Ce que personne n'ose dire tout haut.</p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <h3 class="text-lg font-bold text-white mb-3">Des logiciels d'un autre si&egrave;cle</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Amadeus (MCPS) existe depuis 1996 et tourne encore sur MS-SQL/Windows. Gerico (I-Pulses) est plus r&eacute;cent mais reste un outil de gestion classique sans v&eacute;ritable IA. Aucun ne propose de portail d&eacute;biteur, aucun n'automatise la conformit&eacute;, aucun ne vous pr&eacute;pare pour juin 2026.</p>
+        <h3 class="text-lg font-bold text-white mb-3" data-i18n="painOldSoftTitle">Des logiciels d'un autre si&egrave;cle</h3>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="painOldSoftDesc">Amadeus (MCPS) existe depuis 1996 et tourne encore sur MS-SQL/Windows. Gerico (I-Pulses) est plus r&eacute;cent mais reste un outil de gestion classique sans v&eacute;ritable IA. Aucun ne propose de portail d&eacute;biteur, aucun n'automatise la conformit&eacute;, aucun ne vous pr&eacute;pare pour juin 2026.</p>
       </div>
       <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <h3 class="text-lg font-bold text-white mb-3">Une avalanche r&eacute;glementaire sans pr&eacute;c&eacute;dent</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Book XIX (8 mentions obligatoires, cooling-off), AI Act europ&eacute;en (EU 2024/1689), eIDAS, RGPD, signification &eacute;lectronique obligatoire (loi XX/2025 mod. C.jud. — juin 2026), e-Deposit SPF Justice, RCDA… Votre logiciel actuel g&egrave;re-t-il tout &ccedil;a ? Non.</p>
+        <h3 class="text-lg font-bold text-white mb-3" data-i18n="painRegTitle">Une avalanche r&eacute;glementaire sans pr&eacute;c&eacute;dent</h3>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="painRegDesc">Book XIX (8 mentions obligatoires, cooling-off), AI Act europ&eacute;en (EU 2024/1689), eIDAS, RGPD, signification &eacute;lectronique obligatoire (loi XX/2025 mod. C.jud. — juin 2026), e-Deposit SPF Justice, RCDA… Votre logiciel actuel g&egrave;re-t-il tout &ccedil;a ? Non.</p>
       </div>
       <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <h3 class="text-lg font-bold text-white mb-3">Du temps gaspill&eacute; &agrave; grande &eacute;chelle</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Vos clercs passent 70% de leur temps &agrave; naviguer entre 4 onglets pour reconstituer l'historique d'un dossier. Vos secr&eacute;taires jonglent entre syst&egrave;mes pour les courriers et les appels. Vous, huissier, n'avez aucune vue consolid&eacute;e sur votre taux de recouvrement r&eacute;el.</p>
+        <h3 class="text-lg font-bold text-white mb-3" data-i18n="painTimeTitle">Du temps gaspill&eacute; &agrave; grande &eacute;chelle</h3>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="painTimeDesc">Vos clercs passent 70% de leur temps &agrave; naviguer entre 4 onglets pour reconstituer l'historique d'un dossier. Vos secr&eacute;taires jonglent entre syst&egrave;mes pour les courriers et les appels. Vous, huissier, n'avez aucune vue consolid&eacute;e sur votre taux de recouvrement r&eacute;el.</p>
       </div>
       <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <h3 class="text-lg font-bold text-white mb-3">Des d&eacute;biteurs impossibles &agrave; joindre</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Le courrier recommand&eacute; a un taux de r&eacute;ponse catastrophique. Aucune adaptation au profil du d&eacute;biteur. Z&eacute;ro self-service. R&eacute;sultat : votre t&eacute;l&eacute;phone sonne 50 fois par jour pour des questions qui pourraient &ecirc;tre r&eacute;gl&eacute;es en 2 clics.</p>
+        <h3 class="text-lg font-bold text-white mb-3" data-i18n="painDebtorTitle">Des d&eacute;biteurs impossibles &agrave; joindre</h3>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="painDebtorDesc">Le courrier recommand&eacute; a un taux de r&eacute;ponse catastrophique. Aucune adaptation au profil du d&eacute;biteur. Z&eacute;ro self-service. R&eacute;sultat : votre t&eacute;l&eacute;phone sonne 50 fois par jour pour des questions qui pourraient &ecirc;tre r&eacute;gl&eacute;es en 2 clics.</p>
       </div>
       <div class="bg-dark-card rounded-xl p-8 border-l-4 border-l-red-500 border border-dark-border hover:border-brand-500/50 transition-colors md:col-span-2 lg:col-span-1 reveal">
-        <h3 class="text-lg font-bold text-white mb-3">Aucune intelligence sur vos donn&eacute;es</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Pas de scoring pr&eacute;dictif, pas d'analytics avanc&eacute;s, pas de recommandation de strat&eacute;gie. Vous travaillez &agrave; l'instinct l&agrave; o&ugrave; l'IA pourrait vous donner un avantage d&eacute;cisif.</p>
+        <h3 class="text-lg font-bold text-white mb-3" data-i18n="painDataTitle">Aucune intelligence sur vos donn&eacute;es</h3>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="painDataDesc">Pas de scoring pr&eacute;dictif, pas d'analytics avanc&eacute;s, pas de recommandation de strat&eacute;gie. Vous travaillez &agrave; l'instinct l&agrave; o&ugrave; l'IA pourrait vous donner un avantage d&eacute;cisif.</p>
       </div>
     </div>
   </div>
@@ -216,8 +231,8 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section id="features" class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">7 raisons de passer &agrave; huissiers.io</h2>
-      <p class="mt-4 text-lg text-gray-400">Chaque fonctionnalit&eacute; a &eacute;t&eacute; pens&eacute;e pour les huissiers belges.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="featuresTitle">7 raisons de passer &agrave; huissiers.io</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="featuresSubtitle">Chaque fonctionnalit&eacute; a &eacute;t&eacute; pens&eacute;e pour les huissiers belges.</p>
     </div>
     <div class="grid md:grid-cols-2 gap-6">
 
@@ -226,11 +241,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-brain"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Intelligence Artificielle</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">Aucun concurrent belge ne propose ces fonctionnalit&eacute;s IA</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat1Title">Intelligence Artificielle</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat1Subtitle">Aucun concurrent belge ne propose ces fonctionnalit&eacute;s IA</p>
           </div>
         </div>
-        <ul class="space-y-3 text-sm">
+        <ul class="space-y-3 text-sm" data-i18n-html="feat1List">
           <li class="text-gray-400"><span class="text-white font-semibold">Brief-to-Act (IA G&eacute;n&eacute;rative Juridique)</span> — D&eacute;crivez une situation en 3 phrases en langage naturel. L'IA g&eacute;n&egrave;re l'acte juridique complet — citation, commandement, PV de saisie — pr&eacute;-rempli avec le contexte du dossier et les r&egrave;gles applicables. Vous validez et signez. Conforme AI Act (risque limit&eacute;, art. 6).</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Scoring Pr&eacute;dictif de Recouvrement</span> — Probabilit&eacute; de paiement 0-100% bas&eacute;e sur l'historique du d&eacute;biteur, sa r&eacute;activit&eacute;, le type de cr&eacute;ance, le montant et l'anciennet&eacute;. Retour : canal optimal (email/SMS/WhatsApp), horaire optimal d'envoi, niveau de risque (LOW/MEDIUM/HIGH), et recommandation strat&eacute;gique concr&egrave;te.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Relances Adaptatives IA</span> — L'IA personnalise le ton (empathique, neutre, ferme), le canal optimal pour CE d&eacute;biteur sp&eacute;cifique, et l'heure d'envoi. Avec A/B testing int&eacute;gr&eacute; pour affiner continuellement.</li>
@@ -244,11 +259,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-laptop-code"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Portail D&eacute;biteur Self-Service</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">La plus grande innovation de huissiers.io — une premi&egrave;re en Belgique</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat2Title">Portail D&eacute;biteur Self-Service</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat2Subtitle">La plus grande innovation de huissiers.io — une premi&egrave;re en Belgique</p>
           </div>
         </div>
-        <ul class="space-y-2 text-sm">
+        <ul class="space-y-2 text-sm" data-i18n-html="feat2List">
           <li class="text-gray-400"><span class="text-white font-semibold">Chatbot IA 24/7</span> — Le d&eacute;biteur pose ses questions en langage naturel. Conforme AI Act art. 50.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Paiement en ligne instantan&eacute;</span> — Bancontact, carte, ou virement (int&eacute;gration Mollie).</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Plans d'apurement self-service</span> — Le d&eacute;biteur propose lui-m&ecirc;me un plan. L'IA score automatiquement (GREEN/ORANGE/RED).</li>
@@ -257,7 +272,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
           <li class="text-gray-400"><span class="text-white font-semibold">Attestation de paiement instantan&eacute;e</span> — PDF auto. -40% appels entrants.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Accessibilit&eacute; WCAG 2.1 AA</span></li>
         </ul>
-        <p class="mt-4 text-emerald-400 text-sm font-medium">R&eacute;sultat mesur&eacute; : -50% d'appels entrants, +15% de taux de recouvrement, satisfaction d&eacute;biteur en hausse.</p>
+        <p class="mt-4 text-emerald-400 text-sm font-medium" data-i18n="feat2Result">R&eacute;sultat mesur&eacute; : -50% d'appels entrants, +15% de taux de recouvrement, satisfaction d&eacute;biteur en hausse.</p>
       </div>
 
       <!-- Feature 3: Conformit&eacute; -->
@@ -265,11 +280,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Conformit&eacute; 100% Automatique</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">Le cauchemar r&eacute;glementaire devient un non-sujet</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat3Title">Conformit&eacute; 100% Automatique</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat3Subtitle">Le cauchemar r&eacute;glementaire devient un non-sujet</p>
           </div>
         </div>
-        <ul class="space-y-2 text-sm">
+        <ul class="space-y-2 text-sm" data-i18n-html="feat3List">
           <li class="text-gray-400"><span class="text-white font-semibold">Book XIX automatis&eacute;</span> — 8 mentions obligatoires ins&eacute;r&eacute;es automatiquement, d&eacute;lai de r&eacute;tractation calcul&eacute;, cooling-off g&eacute;r&eacute;.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Quotit&eacute;s saisissables art. 1409</span> — Calcul automatique selon les bar&egrave;mes en vigueur, charges d&eacute;ductibles incluses.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">itsme&reg; QES</span> — Signature qualifi&eacute;e eIDAS int&eacute;gr&eacute;e nativement. Pr&ecirc;t pour la signification &eacute;lectronique obligatoire.</li>
@@ -284,11 +299,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-chart-column"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Dashboard &amp; Analytics par R&ocirc;le</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">Chaque membre de l'&eacute;tude voit exactement ce dont il a besoin</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat4Title">Dashboard &amp; Analytics par R&ocirc;le</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat4Subtitle">Chaque membre de l'&eacute;tude voit exactement ce dont il a besoin</p>
           </div>
         </div>
-        <ul class="space-y-2 text-sm">
+        <ul class="space-y-2 text-sm" data-i18n-html="feat4List">
           <li class="text-gray-400"><span class="text-white font-semibold">Vue Huissier/Admin</span> — KPIs globaux, taux de recouvrement, performance par clerc, alertes conformit&eacute;.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Vue Clerc</span> — Mes dossiers, mes t&acirc;ches du jour, mes deadlines, mes performances.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Vue Stagiaire</span> — Dossiers assign&eacute;s avec supervision, acc&egrave;s limit&eacute;, audit trail complet.</li>
@@ -302,11 +317,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-bolt"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Workflow Configurable Sans Code</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">Votre &eacute;tude, vos r&egrave;gles. Sans d&eacute;veloppeur.</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat5Title">Workflow Configurable Sans Code</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat5Subtitle">Votre &eacute;tude, vos r&egrave;gles. Sans d&eacute;veloppeur.</p>
           </div>
         </div>
-        <ul class="space-y-2 text-sm">
+        <ul class="space-y-2 text-sm" data-i18n-html="feat5List">
           <li class="text-gray-400"><span class="text-white font-semibold">Moteur &eacute;tat/transition</span> — D&eacute;finissez vos propres workflows avec &eacute;tats, transitions, conditions et actions automatiques.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Timeline unifi&eacute;e</span> — Chaque dossier a une timeline compl&egrave;te : actes, courriers, appels, paiements, notes.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Cr&eacute;ation rapide de dossier</span> — 30 secondes au lieu de 10 minutes. Import CSV/Excel ou API.</li>
@@ -321,11 +336,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-plug"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Connect&eacute; &agrave; Tout l'&Eacute;cosyst&egrave;me Belge</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">Toutes les API belges. Nativement int&eacute;gr&eacute;es.</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat6Title">Connect&eacute; &agrave; Tout l'&Eacute;cosyst&egrave;me Belge</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat6Subtitle">Toutes les API belges. Nativement int&eacute;gr&eacute;es.</p>
           </div>
         </div>
-        <ul class="space-y-2 text-sm grid md:grid-cols-2 gap-x-8">
+        <ul class="space-y-2 text-sm grid md:grid-cols-2 gap-x-8" data-i18n-html="feat6List">
           <li class="text-gray-400"><span class="text-white font-semibold">BCE/KBO</span> — Recherche entreprise, donn&eacute;es l&eacute;gales, repr&eacute;sentants, adresses.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">FCA</span> — Consultation du Fichier Central des Avis de saisie en temps r&eacute;el.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">ONSS/SPF Finances</span> — Interrogation des donn&eacute;es sociales et fiscales (selon habilitations).</li>
@@ -342,11 +357,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <div class="flex items-start gap-4 mb-4">
           <div class="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0"><i class="fa-solid fa-rocket"></i></div>
           <div>
-            <h3 class="text-xl font-bold text-white">Pens&eacute; pour Demain</h3>
-            <p class="text-brand-500 text-sm font-medium mt-1">On ne construit pas un logiciel pour 2026. On construit pour 2030.</p>
+            <h3 class="text-xl font-bold text-white" data-i18n="feat7Title">Pens&eacute; pour Demain</h3>
+            <p class="text-brand-500 text-sm font-medium mt-1" data-i18n="feat7Subtitle">On ne construit pas un logiciel pour 2026. On construit pour 2030.</p>
           </div>
         </div>
-        <ul class="space-y-2 text-sm grid md:grid-cols-2 gap-x-8">
+        <ul class="space-y-2 text-sm grid md:grid-cols-2 gap-x-8" data-i18n-html="feat7List">
           <li class="text-gray-400"><span class="text-white font-semibold">Multi-tenant isol&eacute;</span> — Chaque &eacute;tude a sa propre base de donn&eacute;es. Isolation totale.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Mode Offline PWA</span> — Continuez &agrave; travailler m&ecirc;me sans connexion. Synchronisation automatique.</li>
           <li class="text-gray-400"><span class="text-white font-semibold">Multi-&Eacute;tude F&eacute;d&eacute;r&eacute;</span> — Place de march&eacute; inter-&eacute;tudes pour missions d&eacute;l&eacute;gu&eacute;es.</li>
@@ -364,22 +379,22 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Conformit&eacute; &amp; S&eacute;curit&eacute; — Z&eacute;ro Compromis</h2>
-      <p class="mt-4 text-lg text-gray-400">Chaque exigence l&eacute;gale, couverte nativement.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="complianceTitle">Conformit&eacute; &amp; S&eacute;curit&eacute; — Z&eacute;ro Compromis</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="complianceSubtitle">Chaque exigence l&eacute;gale, couverte nativement.</p>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Book XIX CDE</h4><p class="text-gray-500 text-xs mt-1">8 mentions obligatoires, cooling-off, d&eacute;lai de r&eacute;tractation</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">eIDAS</h4><p class="text-gray-500 text-xs mt-1">Signature qualifi&eacute;e via itsme&reg; QES</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Loi XX/2025</h4><p class="text-gray-500 text-xs mt-1">Signification &eacute;lectronique obligatoire — juin 2026</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">AI Act</h4><p class="text-gray-500 text-xs mt-1">EU 2024/1689 — transparence, tra&ccedil;abilit&eacute;, supervision humaine</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">RGPD</h4><p class="text-gray-500 text-xs mt-1">Privacy by design, DPO-ready, droit &agrave; l'oubli</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Art. 1409</h4><p class="text-gray-500 text-xs mt-1">Quotit&eacute;s saisissables calcul&eacute;es automatiquement</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Art. 519</h4><p class="text-gray-500 text-xs mt-1">Tarifs l&eacute;gaux automatiquement appliqu&eacute;s</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Droit linguistique</h4><p class="text-gray-500 text-xs mt-1">Langue de la proc&eacute;dure respect&eacute;e automatiquement</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">WCAG 2.1 AA</h4><p class="text-gray-500 text-xs mt-1">Accessibilit&eacute; du portail d&eacute;biteur</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Multi-tenant</h4><p class="text-gray-500 text-xs mt-1">Isolation compl&egrave;te des donn&eacute;es par &eacute;tude</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">e-Deposit</h4><p class="text-gray-500 text-xs mt-1">D&eacute;p&ocirc;t &eacute;lectronique SPF Justice int&eacute;gr&eacute;</p></div>
-      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">RCDA</h4><p class="text-gray-500 text-xs mt-1">Registre Central des Dossiers d'Arri&eacute;r&eacute;s</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Book XIX CDE</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeBookXIX">8 mentions obligatoires, cooling-off, d&eacute;lai de r&eacute;tractation</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">eIDAS</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeEidas">Signature qualifi&eacute;e via itsme&reg; QES</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Loi XX/2025</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeLoi">Signification &eacute;lectronique obligatoire — juin 2026</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">AI Act</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeAiAct">EU 2024/1689 — transparence, tra&ccedil;abilit&eacute;, supervision humaine</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">RGPD</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeRgpd">Privacy by design, DPO-ready, droit &agrave; l'oubli</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Art. 1409</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badge1409">Quotit&eacute;s saisissables calcul&eacute;es automatiquement</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Art. 519</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badge519">Tarifs l&eacute;gaux automatiquement appliqu&eacute;s</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Droit linguistique</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeLang">Langue de la proc&eacute;dure respect&eacute;e automatiquement</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">WCAG 2.1 AA</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeWcag">Accessibilit&eacute; du portail d&eacute;biteur</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">Multi-tenant</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeTenant">Isolation compl&egrave;te des donn&eacute;es par &eacute;tude</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">e-Deposit</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeDeposit">D&eacute;p&ocirc;t &eacute;lectronique SPF Justice int&eacute;gr&eacute;</p></div>
+      <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal"><i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-3"></i><h4 class="text-white font-semibold text-sm">RCDA</h4><p class="text-gray-500 text-xs mt-1" data-i18n="badgeRcda">Registre Central des Dossiers d'Arri&eacute;r&eacute;s</p></div>
     </div>
   </div>
 </section>
@@ -388,69 +403,69 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section id="compare" class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Comparez. D&eacute;cidez.</h2>
-      <p class="mt-4 text-lg text-gray-400">Le comparatif le plus complet du march&eacute; belge.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="compareTitle">Comparez. D&eacute;cidez.</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="compareSubtitle">Le comparatif le plus complet du march&eacute; belge.</p>
     </div>
     <div class="overflow-x-auto reveal">
       <table class="w-full text-sm text-left">
         <thead>
           <tr class="border-b border-dark-border">
-            <th class="py-4 px-4 text-gray-400 font-medium">Fonctionnalit&eacute;</th>
+            <th class="py-4 px-4 text-gray-400 font-medium" data-i18n="compareFeatureCol">Fonctionnalit&eacute;</th>
             <th class="py-4 px-4 text-gray-400 font-medium text-center">Amadeus<br><span class="text-xs text-gray-500">(MCPS, 1996)</span></th>
             <th class="py-4 px-4 text-gray-400 font-medium text-center">Gerico<br><span class="text-xs text-gray-500">(I-Pulses)</span></th>
             <th class="py-4 px-4 text-gray-400 font-medium text-center">Foldio</th>
-            <th class="py-4 px-4 text-gray-400 font-medium text-center">Autres</th>
+            <th class="py-4 px-4 text-gray-400 font-medium text-center" data-i18n="compareOthersCol">Autres</th>
             <th class="py-4 px-4 text-center bg-brand-900/10 rounded-t-lg"><span class="text-brand-500 font-bold">huissiers.io</span></th>
           </tr>
         </thead>
         <tbody class="text-gray-300">
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Intelligence artificielle</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Portail d&eacute;biteur</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Workflow configurable</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Basique</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Book XIX automatis&eacute;</td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Partiel</span></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Partiel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowAI">Intelligence artificielle</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowPortal">Portail d&eacute;biteur</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowWorkflow">Workflow configurable</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="compareBasic">Basique</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowBookXIX">Book XIX automatis&eacute;</td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="comparePartial">Partiel</span></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="comparePartial">Partiel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
           <tr class="border-b border-dark-border"><td class="py-3 px-4">itsme&reg; QES</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
           <tr class="border-b border-dark-border"><td class="py-3 px-4">e-Deposit</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Langage adaptatif</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">API REST</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Partiel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Dashboard par r&ocirc;le</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Basique</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Multi-canal IA</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Mode offline</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Scoring pr&eacute;dictif</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Quotit&eacute;s art. 1409</td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Manuel</span></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400">Manuel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Compliance checker</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Place de march&eacute; multi-&eacute;tude</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
-          <tr><td class="py-3 px-4 font-medium text-white">Technologie</td><td class="py-3 px-4 text-center text-xs text-gray-500">MS-SQL<br>Windows</td><td class="py-3 px-4 text-center text-xs text-gray-500">Client-serveur</td><td class="py-3 px-4 text-center text-xs text-gray-500">SaaS</td><td class="py-3 px-4 text-center text-xs text-gray-500">Variable</td><td class="py-3 px-4 text-center bg-brand-900/10 text-xs text-brand-400 font-semibold">SaaS Cloud<br>Laravel/Vue.js</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowLang">Langage adaptatif</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4">API REST</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="comparePartial">Partiel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowDashboard">Dashboard par r&ocirc;le</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="compareBasic">Basique</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowMultichannel">Multi-canal IA</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowOffline">Mode offline</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowScoring">Scoring pr&eacute;dictif</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowQuotas">Quotit&eacute;s art. 1409</td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="compareManual">Manuel</span></td><td class="py-3 px-4 text-center"><span class="text-xs px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400" data-i18n="compareManual">Manuel</span></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowCompliance">Compliance checker</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="compareRowMarketplace">Place de march&eacute; multi-&eacute;tude</td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center"><i class="fa-solid fa-xmark text-red-400"></i></td><td class="py-3 px-4 text-center bg-brand-900/10"><i class="fa-solid fa-check text-brand-500"></i></td></tr>
+          <tr><td class="py-3 px-4 font-medium text-white" data-i18n="compareRowTech">Technologie</td><td class="py-3 px-4 text-center text-xs text-gray-500">MS-SQL<br>Windows</td><td class="py-3 px-4 text-center text-xs text-gray-500">Client-serveur</td><td class="py-3 px-4 text-center text-xs text-gray-500">SaaS</td><td class="py-3 px-4 text-center text-xs text-gray-500" data-i18n="compareVariable">Variable</td><td class="py-3 px-4 text-center bg-brand-900/10 text-xs text-brand-400 font-semibold">SaaS Cloud<br>Laravel/Vue.js</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="mt-8 text-center text-gray-400 text-sm reveal">Aucun concurrent n'offre ne serait-ce que 3 de ces fonctionnalit&eacute;s. <span class="text-brand-500 font-semibold">huissiers.io les offre TOUTES.</span></p>
+    <p class="mt-8 text-center text-gray-400 text-sm reveal" data-i18n-html="compareFooter">Aucun concurrent n'offre ne serait-ce que 3 de ces fonctionnalit&eacute;s. <span class="text-brand-500 font-semibold">huissiers.io les offre TOUTES.</span></p>
   </div>
 </section>
 
 <!-- COUNTDOWN -->
 <section id="countdown" class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2 class="text-3xl font-bold text-white sm:text-4xl reveal">Juin 2026 : la signification &eacute;lectronique devient obligatoire.</h2>
+    <h2 class="text-3xl font-bold text-white sm:text-4xl reveal" data-i18n="countdownTitle">Juin 2026 : la signification &eacute;lectronique devient obligatoire.</h2>
     <div class="mt-12 flex justify-center gap-4 sm:gap-8 reveal">
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
         <span id="cd-days" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
-        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Jours</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block" data-i18n="countdownDays">Jours</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
         <span id="cd-hours" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
-        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Heures</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block" data-i18n="countdownHours">Heures</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
         <span id="cd-mins" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
-        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Minutes</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block" data-i18n="countdownMins">Minutes</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border min-w-[80px] sm:min-w-[120px]">
         <span id="cd-secs" class="text-4xl sm:text-6xl font-bold text-brand-500 font-mono block">--</span>
-        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block">Secondes</span>
+        <span class="text-gray-500 text-xs uppercase tracking-wider mt-1 block" data-i18n="countdownSecs">Secondes</span>
       </div>
     </div>
-    <p class="mt-8 text-gray-400 max-w-2xl mx-auto reveal">La loi XX/2025 modifiant le Code judiciaire impose la signification &eacute;lectronique et le d&eacute;p&ocirc;t e-Deposit &agrave; partir de juin 2026. huissiers.io int&egrave;gre itsme&reg; QES et e-Deposit nativement.</p>
-    <a href="#contact" class="mt-8 inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium reveal">V&eacute;rifier si mon &eacute;tude est pr&ecirc;te →</a>
+    <p class="mt-8 text-gray-400 max-w-2xl mx-auto reveal" data-i18n="countdownDesc">La loi XX/2025 modifiant le Code judiciaire impose la signification &eacute;lectronique et le d&eacute;p&ocirc;t e-Deposit &agrave; partir de juin 2026. huissiers.io int&egrave;gre itsme&reg; QES et e-Deposit nativement.</p>
+    <a href="#contact" class="mt-8 inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium reveal" data-i18n="countdownCta">V&eacute;rifier si mon &eacute;tude est pr&ecirc;te →</a>
   </div>
 </section>
 
@@ -458,46 +473,46 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section id="avantages" class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Des r&eacute;sultats, pas des promesses.</h2>
-      <p class="mt-4 text-lg text-gray-400">Chiffres mesur&eacute;s sur les &eacute;tudes pilotes.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="resultsTitle">Des r&eacute;sultats, pas des promesses.</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="resultsSubtitle">Chiffres mesur&eacute;s sur les &eacute;tudes pilotes.</p>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
         <span class="text-3xl font-bold text-brand-500 block">-50%</span>
-        <span class="text-gray-400 text-xs mt-2 block">Appels entrants</span>
+        <span class="text-gray-400 text-xs mt-2 block" data-i18n="resultCalls">Appels entrants</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
         <span class="text-3xl font-bold text-brand-500 block">+15%</span>
-        <span class="text-gray-400 text-xs mt-2 block">Taux de recouvrement</span>
+        <span class="text-gray-400 text-xs mt-2 block" data-i18n="resultRecovery">Taux de recouvrement</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
         <span class="text-3xl font-bold text-brand-500 block">&lt;48h</span>
-        <span class="text-gray-400 text-xs mt-2 block">Premier acte</span>
+        <span class="text-gray-400 text-xs mt-2 block" data-i18n="resultFirstAct">Premier acte</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
         <span class="text-3xl font-bold text-brand-500 block">30 sec</span>
-        <span class="text-gray-400 text-xs mt-2 block">Cr&eacute;ation dossier</span>
+        <span class="text-gray-400 text-xs mt-2 block" data-i18n="resultCaseCreation">Cr&eacute;ation dossier</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
         <span class="text-3xl font-bold text-brand-500 block">0</span>
-        <span class="text-gray-400 text-xs mt-2 block">Erreurs juridiques</span>
+        <span class="text-gray-400 text-xs mt-2 block" data-i18n="resultErrors">Erreurs juridiques</span>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border text-center reveal">
         <span class="text-3xl font-bold text-brand-500 block">99.5%</span>
-        <span class="text-gray-400 text-xs mt-2 block">Uptime garanti</span>
+        <span class="text-gray-400 text-xs mt-2 block" data-i18n="resultUptime">Uptime garanti</span>
       </div>
     </div>
     <!-- Before / After Table -->
     <div class="overflow-x-auto reveal">
       <table class="w-full text-sm">
-        <thead><tr class="border-b border-dark-border"><th class="py-3 px-4 text-left text-gray-400 font-medium">M&eacute;trique</th><th class="py-3 px-4 text-center text-red-400 font-medium">Avant</th><th class="py-3 px-4 text-center text-emerald-400 font-medium">Avec huissiers.io</th></tr></thead>
+        <thead><tr class="border-b border-dark-border"><th class="py-3 px-4 text-left text-gray-400 font-medium" data-i18n="baMetric">M&eacute;trique</th><th class="py-3 px-4 text-center text-red-400 font-medium" data-i18n="baBefore">Avant</th><th class="py-3 px-4 text-center text-emerald-400 font-medium" data-i18n="baAfter">Avec huissiers.io</th></tr></thead>
         <tbody class="text-gray-300">
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Appels entrants</td><td class="py-3 px-4 text-center text-red-400">50+/jour</td><td class="py-3 px-4 text-center text-emerald-400">25/jour (-50%)</td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Taux de recouvrement</td><td class="py-3 px-4 text-center text-red-400">Variable</td><td class="py-3 px-4 text-center text-emerald-400">+15% en moyenne</td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Temps cr&eacute;ation dossier</td><td class="py-3 px-4 text-center text-red-400">10 minutes</td><td class="py-3 px-4 text-center text-emerald-400">30 secondes</td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">D&eacute;lai premier acte</td><td class="py-3 px-4 text-center text-red-400">3-5 jours</td><td class="py-3 px-4 text-center text-emerald-400">&lt;48 heures</td></tr>
-          <tr class="border-b border-dark-border"><td class="py-3 px-4">Erreurs juridiques</td><td class="py-3 px-4 text-center text-red-400">Fr&eacute;quentes</td><td class="py-3 px-4 text-center text-emerald-400">0 (compliance checker)</td></tr>
-          <tr><td class="py-3 px-4">Reconstitution historique</td><td class="py-3 px-4 text-center text-red-400">4 onglets, 70% du temps</td><td class="py-3 px-4 text-center text-emerald-400">1 clic (timeline unifi&eacute;e)</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="resultCalls">Appels entrants</td><td class="py-3 px-4 text-center text-red-400" data-i18n="baCallsBefore">50+/jour</td><td class="py-3 px-4 text-center text-emerald-400" data-i18n="baCallsAfter">25/jour (-50%)</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="resultRecovery">Taux de recouvrement</td><td class="py-3 px-4 text-center text-red-400" data-i18n="baRecovBefore">Variable</td><td class="py-3 px-4 text-center text-emerald-400" data-i18n="baRecovAfter">+15% en moyenne</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="baCaseLabel">Temps cr&eacute;ation dossier</td><td class="py-3 px-4 text-center text-red-400" data-i18n="baCaseBefore">10 minutes</td><td class="py-3 px-4 text-center text-emerald-400" data-i18n="baCaseAfter">30 secondes</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="baActLabel">D&eacute;lai premier acte</td><td class="py-3 px-4 text-center text-red-400" data-i18n="baActBefore">3-5 jours</td><td class="py-3 px-4 text-center text-emerald-400" data-i18n="baActAfter">&lt;48 heures</td></tr>
+          <tr class="border-b border-dark-border"><td class="py-3 px-4" data-i18n="resultErrors">Erreurs juridiques</td><td class="py-3 px-4 text-center text-red-400" data-i18n="baErrorBefore">Fr&eacute;quentes</td><td class="py-3 px-4 text-center text-emerald-400" data-i18n="baErrorAfter">0 (compliance checker)</td></tr>
+          <tr><td class="py-3 px-4" data-i18n="baHistLabel">Reconstitution historique</td><td class="py-3 px-4 text-center text-red-400" data-i18n="baHistBefore">4 onglets, 70% du temps</td><td class="py-3 px-4 text-center text-emerald-400" data-i18n="baHistAfter">1 clic (timeline unifi&eacute;e)</td></tr>
         </tbody>
       </table>
     </div>
@@ -508,31 +523,31 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Ce qu'en disent les &eacute;tudes pilotes</h2>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="testimonialTitle">Ce qu'en disent les &eacute;tudes pilotes</h2>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <div class="flex gap-1 text-brand-500 mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-        <p class="text-gray-300 text-sm leading-relaxed italic">&laquo; Le portail d&eacute;biteur a transform&eacute; notre quotidien. Nos secr&eacute;taires passaient la moiti&eacute; de leur temps au t&eacute;l&eacute;phone pour des questions basiques. Aujourd'hui, les d&eacute;biteurs trouvent eux-m&ecirc;mes les r&eacute;ponses et paient en ligne. -50% d'appels en 3 mois. &raquo;</p>
+        <p class="text-gray-300 text-sm leading-relaxed italic" data-i18n="testimonial1">&laquo; Le portail d&eacute;biteur a transform&eacute; notre quotidien. Nos secr&eacute;taires passaient la moiti&eacute; de leur temps au t&eacute;l&eacute;phone pour des questions basiques. Aujourd'hui, les d&eacute;biteurs trouvent eux-m&ecirc;mes les r&eacute;ponses et paient en ligne. -50% d'appels en 3 mois. &raquo;</p>
         <div class="mt-6 flex items-center gap-3">
           <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-sm">MV</div>
-          <div><p class="text-white font-semibold text-sm">Ma&icirc;tre V.</p><p class="text-gray-500 text-xs">Huissier de justice, Bruxelles</p></div>
+          <div><p class="text-white font-semibold text-sm" data-i18n="testimonial1Author">Ma&icirc;tre V.</p><p class="text-gray-500 text-xs" data-i18n="testimonial1Role">Huissier de justice, Bruxelles</p></div>
         </div>
       </div>
       <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <div class="flex gap-1 text-brand-500 mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-        <p class="text-gray-300 text-sm leading-relaxed italic">&laquo; Enfin un logiciel qui comprend le Book XIX. Les 8 mentions obligatoires sont ins&eacute;r&eacute;es automatiquement, les quotit&eacute;s saisissables calcul&eacute;es en temps r&eacute;el. On ne se pose plus la question de la conformit&eacute;. Et le compliance checker avant chaque acte, c'est la tranquillit&eacute; absolue. &raquo;</p>
+        <p class="text-gray-300 text-sm leading-relaxed italic" data-i18n="testimonial2">&laquo; Enfin un logiciel qui comprend le Book XIX. Les 8 mentions obligatoires sont ins&eacute;r&eacute;es automatiquement, les quotit&eacute;s saisissables calcul&eacute;es en temps r&eacute;el. On ne se pose plus la question de la conformit&eacute;. Et le compliance checker avant chaque acte, c'est la tranquillit&eacute; absolue. &raquo;</p>
         <div class="mt-6 flex items-center gap-3">
           <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-sm">ED</div>
-          <div><p class="text-white font-semibold text-sm">&Eacute;tude D.</p><p class="text-gray-500 text-xs">3 huissiers associ&eacute;s, Li&egrave;ge</p></div>
+          <div><p class="text-white font-semibold text-sm" data-i18n="testimonial2Author">&Eacute;tude D.</p><p class="text-gray-500 text-xs" data-i18n="testimonial2Role">3 huissiers associ&eacute;s, Li&egrave;ge</p></div>
         </div>
       </div>
       <div class="bg-dark-card rounded-xl p-8 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <div class="flex gap-1 text-brand-500 mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-        <p class="text-gray-300 text-sm leading-relaxed italic">&laquo; L'obligation itsme arrive en juin 2026 et personne n'est pr&ecirc;t. Avec huissiers.io, on sera les premiers. Le mode offline est aussi un game-changer pour les significations sur le terrain. &raquo;</p>
+        <p class="text-gray-300 text-sm leading-relaxed italic" data-i18n="testimonial3">&laquo; L'obligation itsme arrive en juin 2026 et personne n'est pr&ecirc;t. Avec huissiers.io, on sera les premiers. Le mode offline est aussi un game-changer pour les significations sur le terrain. &raquo;</p>
         <div class="mt-6 flex items-center gap-3">
           <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-sm">CS</div>
-          <div><p class="text-white font-semibold text-sm">Clerc senior S.</p><p class="text-gray-500 text-xs">&Eacute;tude &agrave; Gand</p></div>
+          <div><p class="text-white font-semibold text-sm" data-i18n="testimonial3Author">Clerc senior S.</p><p class="text-gray-500 text-xs" data-i18n="testimonial3Role">&Eacute;tude &agrave; Gand</p></div>
         </div>
       </div>
     </div>
@@ -543,12 +558,12 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Feuille de route 2026-2027</h2>
-      <p class="mt-4 text-lg text-gray-400">Transparence totale sur notre progression.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="roadmapTitle">Feuille de route 2026-2027</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="roadmapSubtitle">Transparence totale sur notre progression.</p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 mb-4">En cours</span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 mb-4" data-i18n="roadmapInProgress">En cours</span>
         <h3 class="text-white font-bold text-lg mb-3">Q2 2026</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-500 mt-0.5 text-xs"></i>itsme&reg; QES</li>
@@ -559,7 +574,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         </ul>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4">Planifi&eacute;</span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4" data-i18n="roadmapPlanned">Planifi&eacute;</span>
         <h3 class="text-white font-bold text-lg mb-3">Q3 2026</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>API REST cr&eacute;ancier</li>
@@ -569,7 +584,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         </ul>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4">Planifi&eacute;</span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4" data-i18n="roadmapPlanned">Planifi&eacute;</span>
         <h3 class="text-white font-bold text-lg mb-3">Q4 2026</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Scoring pr&eacute;dictif ML</li>
@@ -579,7 +594,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         </ul>
       </div>
       <div class="bg-dark-card rounded-xl p-6 border border-dark-border hover:border-brand-500/50 transition-colors reveal">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4">Vision</span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-400 mb-4" data-i18n="roadmapVision">Vision</span>
         <h3 class="text-white font-bold text-lg mb-3">2027</h3>
         <ul class="space-y-2 text-sm text-gray-400">
           <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-gray-600 mt-1 text-[6px]"></i>Multi-&eacute;tude f&eacute;d&eacute;r&eacute;</li>
@@ -597,12 +612,12 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
       <div class="text-center md:text-left reveal">
         <div class="h-24 w-24 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 font-bold text-3xl mx-auto md:mx-0 mb-6">NS</div>
         <h3 class="text-2xl font-bold text-white">Nicolas Simon</h3>
-        <p class="text-brand-500 font-medium mt-1">Fondateur &amp; D&eacute;veloppeur — Clixite SRL</p>
+        <p class="text-brand-500 font-medium mt-1" data-i18n="aboutFounder">Fondateur &amp; D&eacute;veloppeur — Clixite SRL</p>
       </div>
       <div class="reveal">
-        <blockquote class="text-xl text-gray-300 font-medium italic border-l-4 border-brand-500 pl-6 mb-6">&laquo; J'ai cr&eacute;&eacute; huissiers.io parce que les huissiers belges m&eacute;ritent un outil &agrave; la hauteur de leur mission. &raquo;</blockquote>
-        <p class="text-gray-400 text-sm leading-relaxed mb-4">Ing&eacute;nieur logiciel sp&eacute;cialis&eacute; en LegalTech, j'ai pass&eacute; des mois &agrave; &eacute;tudier le quotidien des &eacute;tudes d'huissiers belges. Le constat est sans appel : des outils obsol&egrave;tes, une r&eacute;glementation en avalanche, et z&eacute;ro innovation depuis des ann&eacute;es.</p>
-        <p class="text-gray-400 text-sm leading-relaxed">huissiers.io est n&eacute; de cette frustration. Chaque fonctionnalit&eacute; a &eacute;t&eacute; con&ccedil;ue avec des huissiers, pour des huissiers. Pas un logiciel g&eacute;n&eacute;rique adapt&eacute; — une solution pens&eacute;e exclusivement pour le m&eacute;tier.</p>
+        <blockquote class="text-xl text-gray-300 font-medium italic border-l-4 border-brand-500 pl-6 mb-6" data-i18n="aboutQuote">&laquo; J'ai cr&eacute;&eacute; huissiers.io parce que les huissiers belges m&eacute;ritent un outil &agrave; la hauteur de leur mission. &raquo;</blockquote>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4" data-i18n="aboutP1">Ing&eacute;nieur logiciel sp&eacute;cialis&eacute; en LegalTech, j'ai pass&eacute; des mois &agrave; &eacute;tudier le quotidien des &eacute;tudes d'huissiers belges. Le constat est sans appel : des outils obsol&egrave;tes, une r&eacute;glementation en avalanche, et z&eacute;ro innovation depuis des ann&eacute;es.</p>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="aboutP2">huissiers.io est n&eacute; de cette frustration. Chaque fonctionnalit&eacute; a &eacute;t&eacute; con&ccedil;ue avec des huissiers, pour des huissiers. Pas un logiciel g&eacute;n&eacute;rique adapt&eacute; — une solution pens&eacute;e exclusivement pour le m&eacute;tier.</p>
       </div>
     </div>
   </div>
@@ -612,24 +627,24 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Op&eacute;rationnel en 2 semaines</h2>
-      <p class="mt-4 text-lg text-gray-400">Un processus simple et accompagn&eacute;.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="howTitle">Op&eacute;rationnel en 2 semaines</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="howSubtitle">Un processus simple et accompagn&eacute;.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       <div class="relative text-center reveal">
         <div class="h-12 w-12 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">1</div>
-        <h3 class="text-lg font-bold text-white mb-2">D&eacute;mo personnalis&eacute;e</h3>
-        <p class="text-gray-400 text-sm">30 minutes pour d&eacute;couvrir la plateforme avec vos propres cas d'usage.</p>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="howStep1Title">D&eacute;mo personnalis&eacute;e</h3>
+        <p class="text-gray-400 text-sm" data-i18n="howStep1Desc">30 minutes pour d&eacute;couvrir la plateforme avec vos propres cas d'usage.</p>
       </div>
       <div class="relative text-center reveal">
         <div class="h-12 w-12 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">2</div>
-        <h3 class="text-lg font-bold text-white mb-2">Migration assist&eacute;e</h3>
-        <p class="text-gray-400 text-sm">Import de vos dossiers existants, configuration de vos workflows, param&eacute;trage complet.</p>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="howStep2Title">Migration assist&eacute;e</h3>
+        <p class="text-gray-400 text-sm" data-i18n="howStep2Desc">Import de vos dossiers existants, configuration de vos workflows, param&eacute;trage complet.</p>
       </div>
       <div class="relative text-center reveal">
         <div class="h-12 w-12 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">3</div>
-        <h3 class="text-lg font-bold text-white mb-2">Go live + formation</h3>
-        <p class="text-gray-400 text-sm">Formation de votre &eacute;quipe et accompagnement pendant les premi&egrave;res semaines.</p>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="howStep3Title">Go live + formation</h3>
+        <p class="text-gray-400 text-sm" data-i18n="howStep3Desc">Formation de votre &eacute;quipe et accompagnement pendant les premi&egrave;res semaines.</p>
       </div>
     </div>
   </div>
@@ -638,8 +653,8 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <!-- CLOSING STATEMENT -->
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-    <h2 class="text-3xl font-bold text-white sm:text-4xl mb-6">huissiers.io n'est pas une &eacute;volution de ce qui existe.<br>C'est une <span class="text-gradient">rupture</span>.</h2>
-    <p class="text-gray-400 text-lg leading-relaxed">Le premier portail d&eacute;biteur self-service en Belgique. La premi&egrave;re IA g&eacute;n&eacute;rative juridique pour huissiers. Le premier compliance checker automatis&eacute;. Le premier scoring pr&eacute;dictif de recouvrement. La premi&egrave;re int&eacute;gration native itsme&reg; QES et e-Deposit. Le premier logiciel d'huissier conforme AI Act. Le premier mode offline pour les significations terrain. La premi&egrave;re place de march&eacute; inter-&eacute;tudes.</p>
+    <h2 class="text-3xl font-bold text-white sm:text-4xl mb-6" data-i18n-html="closingTitle">huissiers.io n'est pas une &eacute;volution de ce qui existe.<br>C'est une <span class="text-gradient">rupture</span>.</h2>
+    <p class="text-gray-400 text-lg leading-relaxed" data-i18n="closingDesc">Le premier portail d&eacute;biteur self-service en Belgique. La premi&egrave;re IA g&eacute;n&eacute;rative juridique pour huissiers. Le premier compliance checker automatis&eacute;. Le premier scoring pr&eacute;dictif de recouvrement. La premi&egrave;re int&eacute;gration native itsme&reg; QES et e-Deposit. Le premier logiciel d'huissier conforme AI Act. Le premier mode offline pour les significations terrain. La premi&egrave;re place de march&eacute; inter-&eacute;tudes.</p>
   </div>
 </section>
 
@@ -647,9 +662,9 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section class="py-24 border-t border-dark-border">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-dark-card rounded-xl p-8 md:p-12 border border-brand-500/30 shadow-[0_0_40px_rgba(249,115,22,0.1)] reveal">
-      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 mb-4">Offre limit&eacute;e — 10 &eacute;tudes</span>
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Devenez &eacute;tude fondatrice</h2>
-      <ul class="space-y-3 text-sm text-gray-400 mb-8">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 mb-4" data-i18n="founderBadge">Offre limit&eacute;e — 10 &eacute;tudes</span>
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6" data-i18n="founderTitle">Devenez &eacute;tude fondatrice</h2>
+      <ul class="space-y-3 text-sm text-gray-400 mb-8" data-i18n-html="founderList">
         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Acc&egrave;s prioritaire &agrave; toutes les fonctionnalit&eacute;s</li>
         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Tarif fondateur garanti &agrave; vie</li>
         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Ligne directe avec l'&eacute;quipe de d&eacute;veloppement</li>
@@ -659,8 +674,8 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Support prioritaire 24/7</li>
         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Engagement sans dur&eacute;e minimale</li>
       </ul>
-      <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium w-full justify-center">Devenir &eacute;tude fondatrice →</a>
-      <p class="mt-4 text-center text-brand-500 text-sm font-semibold pulse-glow">Seulement 7 places restantes</p>
+      <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium w-full justify-center" data-i18n="founderCta">Devenir &eacute;tude fondatrice →</a>
+      <p class="mt-4 text-center text-brand-500 text-sm font-semibold pulse-glow" data-i18n="founderSpots">Seulement 7 places restantes</p>
     </div>
   </div>
 </section>
@@ -669,79 +684,79 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section id="faq" class="py-24 border-t border-dark-border">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Questions fr&eacute;quentes</h2>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="faqTitle">Questions fr&eacute;quentes</h2>
     </div>
     <div class="space-y-3">
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">huissiers.io est-il d&eacute;j&agrave; disponible ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ1">huissiers.io est-il d&eacute;j&agrave; disponible ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Nous sommes en phase de d&eacute;veloppement avanc&eacute; avec des &eacute;tudes pilotes. Les premi&egrave;res fonctionnalit&eacute;s core (gestion de dossiers, workflow, conformit&eacute; Book XIX) sont op&eacute;rationnelles. Le portail d&eacute;biteur et l'IA sont en b&ecirc;ta. Lancement complet pr&eacute;vu Q2 2026, avant l'obligation l&eacute;gale de juin 2026.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA1">Nous sommes en phase de d&eacute;veloppement avanc&eacute; avec des &eacute;tudes pilotes. Les premi&egrave;res fonctionnalit&eacute;s core (gestion de dossiers, workflow, conformit&eacute; Book XIX) sont op&eacute;rationnelles. Le portail d&eacute;biteur et l'IA sont en b&ecirc;ta. Lancement complet pr&eacute;vu Q2 2026, avant l'obligation l&eacute;gale de juin 2026.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">Mes donn&eacute;es sont-elles en s&eacute;curit&eacute; ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ2">Mes donn&eacute;es sont-elles en s&eacute;curit&eacute; ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Absolument. H&eacute;bergement cloud souverain belge/europ&eacute;en, chiffrement AES-256 au repos et TLS 1.3 en transit, multi-tenant avec isolation compl&egrave;te par &eacute;tude, RGPD by design, audit trail complet, sauvegardes automatiques. Vos donn&eacute;es ne quittent jamais l'Europe.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA2">Absolument. H&eacute;bergement cloud souverain belge/europ&eacute;en, chiffrement AES-256 au repos et TLS 1.3 en transit, multi-tenant avec isolation compl&egrave;te par &eacute;tude, RGPD by design, audit trail complet, sauvegardes automatiques. Vos donn&eacute;es ne quittent jamais l'Europe.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">Puis-je migrer depuis Amadeus ou Gerico ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ3">Puis-je migrer depuis Amadeus ou Gerico ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Oui. Nous proposons une migration assist&eacute;e compl&egrave;te. Import de vos dossiers existants (CSV/Excel/API), configuration de vos workflows actuels, et formation de votre &eacute;quipe. Le tout en 2 semaines maximum.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA3">Oui. Nous proposons une migration assist&eacute;e compl&egrave;te. Import de vos dossiers existants (CSV/Excel/API), configuration de vos workflows actuels, et formation de votre &eacute;quipe. Le tout en 2 semaines maximum.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">L'IA est-elle conforme &agrave; l'AI Act ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ4">L'IA est-elle conforme &agrave; l'AI Act ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Oui. Nous avons class&eacute; chaque composant IA selon la grille de risque du r&egrave;glement EU 2024/1689. Brief-to-Act : risque limit&eacute; (art. 6) avec supervision humaine obligatoire. Chatbot d&eacute;biteur : obligation de transparence (art. 50). Scoring : explicabilit&eacute; compl&egrave;te. Chaque d&eacute;cision IA est tra&ccedil;able et auditable.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA4">Oui. Nous avons class&eacute; chaque composant IA selon la grille de risque du r&egrave;glement EU 2024/1689. Brief-to-Act : risque limit&eacute; (art. 6) avec supervision humaine obligatoire. Chatbot d&eacute;biteur : obligation de transparence (art. 50). Scoring : explicabilit&eacute; compl&egrave;te. Chaque d&eacute;cision IA est tra&ccedil;able et auditable.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">Combien &ccedil;a co&ucirc;te ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ5">Combien &ccedil;a co&ucirc;te ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Le tarif d&eacute;pend de la taille de votre &eacute;tude (nombre d'huissiers, de clercs, de dossiers). Nous proposons un mod&egrave;le SaaS mensuel tout inclus, sans engagement de dur&eacute;e. Les &eacute;tudes fondatrices b&eacute;n&eacute;ficient d'un tarif pr&eacute;f&eacute;rentiel garanti &agrave; vie. Contactez-nous pour un devis personnalis&eacute;.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA5">Le tarif d&eacute;pend de la taille de votre &eacute;tude (nombre d'huissiers, de clercs, de dossiers). Nous proposons un mod&egrave;le SaaS mensuel tout inclus, sans engagement de dur&eacute;e. Les &eacute;tudes fondatrices b&eacute;n&eacute;ficient d'un tarif pr&eacute;f&eacute;rentiel garanti &agrave; vie. Contactez-nous pour un devis personnalis&eacute;.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">Fonctionne-t-il en n&eacute;erlandais ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ6">Fonctionne-t-il en n&eacute;erlandais ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Oui. huissiers.io est trilingue natif (FR/NL/EN). L'interface, les templates, le portail d&eacute;biteur, le chatbot — tout fonctionne dans les trois langues. Le droit linguistique est respect&eacute; automatiquement dans chaque acte.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA6">Oui. huissiers.io est trilingue natif (FR/NL/EN). L'interface, les templates, le portail d&eacute;biteur, le chatbot — tout fonctionne dans les trois langues. Le droit linguistique est respect&eacute; automatiquement dans chaque acte.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">Et si je n'ai pas de connexion internet ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ7">Et si je n'ai pas de connexion internet ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">Le mode offline PWA (pr&eacute;vu Q4 2026) vous permet de continuer &agrave; travailler sans connexion. Id&eacute;al pour les significations sur le terrain. Les donn&eacute;es se synchronisent automatiquement d&egrave;s que vous retrouvez une connexion.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA7">Le mode offline PWA (pr&eacute;vu Q4 2026) vous permet de continuer &agrave; travailler sans connexion. Id&eacute;al pour les significations sur le terrain. Les donn&eacute;es se synchronisent automatiquement d&egrave;s que vous retrouvez une connexion.</p>
         </div>
       </div>
       <div class="faq-item bg-dark-card rounded-xl border border-dark-border hover:border-brand-500/50 transition-colors reveal">
         <button class="faq-toggle w-full flex items-center justify-between p-6 text-left" onclick="toggleFaq(this)">
-          <span class="text-white font-semibold text-sm pr-4">Qui est derri&egrave;re huissiers.io ?</span>
+          <span class="text-white font-semibold text-sm pr-4" data-i18n="faqQ8">Qui est derri&egrave;re huissiers.io ?</span>
           <i class="fa-solid fa-chevron-down text-gray-500 text-xs faq-chevron shrink-0"></i>
         </button>
         <div class="faq-answer px-6 pb-6">
-          <p class="text-gray-400 text-sm leading-relaxed">huissiers.io est d&eacute;velopp&eacute; par Clixite SRL, une soci&eacute;t&eacute; belge fond&eacute;e par Nicolas Simon, ing&eacute;nieur logiciel sp&eacute;cialis&eacute; en LegalTech. Le d&eacute;veloppement est enti&egrave;rement r&eacute;alis&eacute; en Belgique.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="faqA8">huissiers.io est d&eacute;velopp&eacute; par Clixite SRL, une soci&eacute;t&eacute; belge fond&eacute;e par Nicolas Simon, ing&eacute;nieur logiciel sp&eacute;cialis&eacute; en LegalTech. Le d&eacute;veloppement est enti&egrave;rement r&eacute;alis&eacute; en Belgique.</p>
         </div>
       </div>
     </div>
@@ -752,77 +767,77 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
 <section id="contact" class="py-24 border-t border-dark-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <h2 class="text-3xl font-bold text-white sm:text-4xl">Planifiez votre d&eacute;mo personnalis&eacute;e</h2>
-      <p class="mt-4 text-lg text-gray-400">30 minutes pour d&eacute;couvrir comment huissiers.io transformera votre &eacute;tude.</p>
+      <h2 class="text-3xl font-bold text-white sm:text-4xl" data-i18n="contactTitle">Planifiez votre d&eacute;mo personnalis&eacute;e</h2>
+      <p class="mt-4 text-lg text-gray-400" data-i18n="contactSubtitle">30 minutes pour d&eacute;couvrir comment huissiers.io transformera votre &eacute;tude.</p>
     </div>
     <div class="grid lg:grid-cols-3 gap-12">
       <div class="lg:col-span-2">
         <form id="contact-form" class="space-y-6 reveal">
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">Nom de l'&eacute;tude</label>
-              <input type="text" name="study_name" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="&Eacute;tude Dupont &amp; Associ&eacute;s">
+              <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formStudyName">Nom de l'&eacute;tude</label>
+              <input type="text" name="study_name" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="&Eacute;tude Dupont &amp; Associ&eacute;s" data-i18n-placeholder="formStudyPlaceholder">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">Votre nom</label>
-              <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="Ma&icirc;tre Dupont">
+              <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formName">Votre nom</label>
+              <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="Ma&icirc;tre Dupont" data-i18n-placeholder="formNamePlaceholder">
             </div>
           </div>
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formEmail">Email</label>
               <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="contact@etude.be">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">T&eacute;l&eacute;phone</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formPhone">T&eacute;l&eacute;phone</label>
               <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="+32 ...">
             </div>
           </div>
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">Nombre d'huissiers</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formBailiffs">Nombre d'huissiers</label>
               <select name="bailiffs_count" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
-                <option value="">S&eacute;lectionnez</option>
-                <option value="1">1 huissier</option>
-                <option value="2-3">2-3 huissiers</option>
-                <option value="4-5">4-5 huissiers</option>
-                <option value="6+">6+ huissiers</option>
+                <option value="" data-i18n="formBailiffsSelect">S&eacute;lectionnez</option>
+                <option value="1" data-i18n="formBailiffs1">1 huissier</option>
+                <option value="2-3" data-i18n="formBailiffs23">2-3 huissiers</option>
+                <option value="4-5" data-i18n="formBailiffs45">4-5 huissiers</option>
+                <option value="6+" data-i18n="formBailiffs6">6+ huissiers</option>
               </select>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">Logiciel actuel</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formCurrentSoftware">Logiciel actuel</label>
               <select name="current_software" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
-                <option value="">S&eacute;lectionnez</option>
+                <option value="" data-i18n="formCurrentSelect">S&eacute;lectionnez</option>
                 <option value="Amadeus">Amadeus (MCPS)</option>
                 <option value="Gerico">Gerico (I-Pulses)</option>
-                <option value="Autre">Autre</option>
-                <option value="Aucun">Aucun</option>
+                <option value="Autre" data-i18n="formCurrentOther">Autre</option>
+                <option value="Aucun" data-i18n="formCurrentNone">Aucun</option>
               </select>
             </div>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-            <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none" placeholder="D&eacute;crivez vos besoins ou vos questions..."></textarea>
+            <label class="block text-sm font-medium text-gray-300 mb-2" data-i18n="formMessage">Message</label>
+            <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-dark-card border border-dark-border text-white placeholder-gray-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none" placeholder="D&eacute;crivez vos besoins ou vos questions..." data-i18n-placeholder="formMessagePlaceholder"></textarea>
           </div>
           <div class="flex items-start gap-3">
             <input type="checkbox" id="gdpr" name="gdpr_consent" required class="mt-1 rounded border-dark-border bg-dark-card text-brand-500 focus:ring-brand-500">
-            <label for="gdpr" class="text-gray-400 text-sm">J'accepte que mes donn&eacute;es soient trait&eacute;es par Clixite SRL pour r&eacute;pondre &agrave; ma demande, conform&eacute;ment au RGPD. Aucune donn&eacute;e ne sera partag&eacute;e avec des tiers.</label>
+            <label for="gdpr" class="text-gray-400 text-sm" data-i18n="formGdpr">J'accepte que mes donn&eacute;es soient trait&eacute;es par Clixite SRL pour r&eacute;pondre &agrave; ma demande, conform&eacute;ment au RGPD. Aucune donn&eacute;e ne sera partag&eacute;e avec des tiers.</label>
           </div>
-          <button type="submit" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium w-full justify-center">Envoyer ma demande de d&eacute;mo →</button>
+          <button type="submit" class="inline-flex items-center px-6 py-3 rounded-md text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all font-medium w-full justify-center" data-i18n="formSubmit">Envoyer ma demande de d&eacute;mo →</button>
           <p id="form-status" class="text-center text-sm hidden"></p>
         </form>
       </div>
       <div class="space-y-8 reveal">
         <div>
-          <h3 class="text-white font-semibold mb-4">Contact direct</h3>
+          <h3 class="text-white font-semibold mb-4" data-i18n="contactDirect">Contact direct</h3>
           <div class="space-y-3 text-sm">
             <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-envelope text-brand-500"></i>nicolas@clixite.be</div>
-            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-location-dot text-brand-500"></i>Belgique</div>
-            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-clock text-brand-500"></i>R&eacute;ponse sous 24h</div>
+            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-location-dot text-brand-500"></i><span data-i18n="contactLocation">Belgique</span></div>
+            <div class="flex items-center gap-3 text-gray-400"><i class="fa-solid fa-clock text-brand-500"></i><span data-i18n="contactResponse">R&eacute;ponse sous 24h</span></div>
           </div>
         </div>
         <div class="bg-dark-card rounded-xl p-6 border border-dark-border">
-          <p class="text-gray-400 text-sm leading-relaxed">Cette d&eacute;mo est personnalis&eacute;e et sans engagement. Nicolas Simon, fondateur de huissiers.io, vous pr&eacute;sentera la plateforme avec vos propres cas d'usage. 30 minutes qui pourraient transformer votre &eacute;tude.</p>
+          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="contactDemoDesc">Cette d&eacute;mo est personnalis&eacute;e et sans engagement. Nicolas Simon, fondateur de huissiers.io, vous pr&eacute;sentera la plateforme avec vos propres cas d'usage. 30 minutes qui pourraient transformer votre &eacute;tude.</p>
         </div>
       </div>
     </div>
@@ -835,30 +850,30 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
     <div class="grid md:grid-cols-4 gap-8">
       <div>
         <div class="flex items-center gap-2 mb-4">
-          <div class="h-8 w-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-sm">H</div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-8 w-8" aria-label="huissiers.io logo"><rect width="32" height="32" rx="6" fill="#f97316"/><g fill="white"><path d="M16 4 L16 7 M16 25 L16 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="9" r="2.5"/><path d="M8 15.5 L16 12 L24 15.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="16" width="4" height="7" rx="1" opacity="0.85"/><rect x="14" y="16" width="4" height="7" rx="1" opacity="0.85"/><rect x="21" y="16" width="4" height="7" rx="1" opacity="0.85"/><rect x="5" y="23.5" width="22" height="2.5" rx="1"/></g></svg>
           <span class="text-lg font-bold text-white">huissiers.io</span>
         </div>
-        <p class="text-gray-500 text-sm">Le logiciel IA pour huissiers de justice belges. Par Clixite SRL.</p>
+        <p class="text-gray-500 text-sm" data-i18n="footerDesc">Le logiciel IA pour huissiers de justice belges. Par Clixite SRL.</p>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">Produit</h4>
+        <h4 class="text-white font-semibold text-sm mb-4" data-i18n="footerProduct">Produit</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Fonctionnalit&eacute;s</a></li>
-          <li><a href="#avantages" class="text-gray-400 hover:text-white transition-colors">Avantages</a></li>
-          <li><a href="#compare" class="text-gray-400 hover:text-white transition-colors">Comparatif</a></li>
-          <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+          <li><a href="#features" class="text-gray-400 hover:text-white transition-colors" data-i18n="navFeatures">Fonctionnalit&eacute;s</a></li>
+          <li><a href="#avantages" class="text-gray-400 hover:text-white transition-colors" data-i18n="navAdvantages">Avantages</a></li>
+          <li><a href="#compare" class="text-gray-400 hover:text-white transition-colors" data-i18n="footerComparison">Comparatif</a></li>
+          <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors" data-i18n="navFaq">FAQ</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">L&eacute;gal</h4>
+        <h4 class="text-white font-semibold text-sm mb-4" data-i18n="footerLegal">L&eacute;gal</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Mentions l&eacute;gales</a></li>
-          <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Politique de confidentialit&eacute;</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footerLegalNotice">Mentions l&eacute;gales</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footerPrivacy">Politique de confidentialit&eacute;</a></li>
           <li><a href="#" class="text-gray-400 hover:text-white transition-colors">RGPD</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="text-white font-semibold text-sm mb-4">Contact</h4>
+        <h4 class="text-white font-semibold text-sm mb-4" data-i18n="footerContact">Contact</h4>
         <ul class="space-y-2 text-sm">
           <li><a href="mailto:nicolas@clixite.be" class="text-gray-400 hover:text-white transition-colors">nicolas@clixite.be</a></li>
           <li><a href="https://www.linkedin.com/in/nicolassimon" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a></li>
@@ -866,7 +881,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 80px); }
       </div>
     </div>
     <div class="mt-12 pt-8 border-t border-dark-border text-center text-gray-500 text-sm">
-      &copy; 2026 Clixite SRL — BCE BE0871430776 — Nicolas Simon. Con&ccedil;u et d&eacute;velopp&eacute; en Belgique &#127463;&#127466;
+      <span data-i18n="footerCopyright">&copy; 2026 Clixite SRL — BCE BE0871430776 — Nicolas Simon. Con&ccedil;u et d&eacute;velopp&eacute; en Belgique</span> &#127463;&#127466;
     </div>
   </div>
 </footer>
@@ -984,7 +999,7 @@ if (form) {
     const status = document.getElementById('form-status');
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
-    btn.textContent = 'Envoi en cours...';
+    btn.textContent = translations.formSubmitting[currentLang];
     try {
       const fd = new FormData(form);
       const payload = {
@@ -1004,19 +1019,19 @@ if (form) {
       });
       const data = await res.json();
       if (data.success) {
-        status.textContent = 'Merci ! Votre demande a bien été envoyée. Nous vous répondrons sous 24h.';
+        status.textContent = translations.formSuccess[currentLang];
         status.className = 'text-center text-sm text-emerald-400';
         form.reset();
       } else {
         throw new Error(data.errors?.[0] || 'Erreur');
       }
     } catch (err) {
-      status.textContent = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement.';
+      status.textContent = translations.formError[currentLang];
       status.className = 'text-center text-sm text-red-400';
     }
     status.classList.remove('hidden');
     btn.disabled = false;
-    btn.textContent = 'Envoyer ma demande de démo →';
+    btn.textContent = translations.formSubmit[currentLang];
   });
 }
 </script>
